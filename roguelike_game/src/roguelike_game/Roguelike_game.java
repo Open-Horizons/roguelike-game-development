@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package roguelike_game;
 
 import java.awt.Color;
@@ -11,14 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- * @version @author andyafw
- */
 public class Roguelike_game extends JFrame {
-
-    /**
-     * @param args the command line arguments
-     */
     public Painting painting;
 
     public Roguelike_game() {
@@ -28,7 +17,6 @@ public class Roguelike_game extends JFrame {
     }
 
     public static void main(String[] args) {
-
         Roguelike_game game = new Roguelike_game();
         game.setSize(1100, 600);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,10 +26,10 @@ public class Roguelike_game extends JFrame {
         thread.start();
     }
 
+    //blends two colors together by a centain percentage of famount
     public Color blend(Color clOne, Color clTwo, float fAmount) {
         float fInverse = (float) (1.0 - fAmount);
-
-        // I had to look up getting colour components in java.  Google is good :)
+        
         float afOne[] = new float[3];
         clOne.getColorComponents(afOne);
         float afTwo[] = new float[3];
@@ -69,20 +57,9 @@ public class Roguelike_game extends JFrame {
             this.setPreferredSize(new Dimension(1100, 600));
         }
 
+        @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-//            System.out.println("getting graphics");
-//            Color shadow = game.blend(originalColour, Color.black, 0.25f);
-//
-//
-//            int width = 1100 / 3;
-//            System.out.println("drawing");
-//            g.setColor(highlight);
-//            g.fillRect(0, 0, width, 600);
-//            g.setColor(originalColour);
-//            g.fillRect(width, 0, width, 600);
-//            g.setColor(shadow);
-//            g.fillRect(width * 2, 0, width, 600);
 
             int width = 300;
             int x = 1100 / 2 - width / 2 - 50;
