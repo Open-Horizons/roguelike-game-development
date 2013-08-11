@@ -6,46 +6,65 @@ package roguelike_game;
  */
 
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.Image;
+import java.util.Random;
+import roguelike_game.graphics.Sprite;
 
 /**
  *
  * @author andyafw
  */
-public class TileMap extends JFrame {
-    public TileMap() {
-        Draw draw = new Draw();
-        add(draw);
+
+//used to draw the world map
+public class TileMap {
+    private Roguelike_game game;
+    
+    public int width;
+    public int height;
+    
+    public int size;
+    
+    private int[][] tiles;
+    
+    public TileMap(Roguelike_game game, int width, int height) {
+        this.game = game;
+        this.width = width;
+        this.height = height;
+        size = 32;
+        tiles = new int[height][width];
     }
     
-    public static void main(String[] args) {
-        TileMap game = new TileMap();
-        game.setSize(1100, 600);
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setLocationRelativeTo(null);
-        game.setVisible(true);
+    public void randomMap() {
+        Random rand = new Random(1200);
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                int r = rand.nextInt(3);
+                System.out.println("rand = " + r);
+                tiles[y][x] = r;
+            }
+        }
     }
     
-    private class Draw extends JPanel {
-            public Draw() {
-                this.setPreferredSize(new Dimension(1100, 600));
+    public void inputMap(String file) {
+        
+    }
+    
+    public void render(Graphics g) {
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                g.drawImage(findImage(tiles[y][x]), x * size, y * size, size, size, null);
             }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-
-                for(int y = 0; y < 30; y++){
-                    for(int x = 0; x < 30; x++) {
-                        g.drawRect(x * 20, y * 20, 20, 20);
-                    }
-                }
-
-            }
+        } 
+    }
+    
+    private Image findImage(int i) {
+        switch(i) {
+            case 0:
+                return Sprite.PLAYER.getImage();
+            default:
+                return null;
+                //return Sprite.EMPTY.getImage();
+        }
     }
 }
