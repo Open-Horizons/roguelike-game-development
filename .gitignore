@@ -1,3 +1,11 @@
+roguelike_game/nbproject/private/
+roguelike_game/build/
+roguelike_game/nbbuild/
+roguelike_game/dist/
+roguelike_game/nbdist/
+roguelike_game/nbactions.xml
+roguelike_game/nb-configuration.xml
+
 #GITIGNORE FOR JAVA
 #java specific
 *.class
@@ -6,7 +14,7 @@
 *.war
 *.ear
 #netbeans ignore personal stuff 
-nbproject/private/*
+roguelike_game/nbproject/private/*
 
 ## generic files to ignore
 *~
