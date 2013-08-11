@@ -61,10 +61,9 @@ public class TileMap {
     private Image findImage(int i) {
         switch(i) {
             case 0:
-                return Sprite.PLAYER.getImage();
+                return Sprite.WALL.getImage();
             default:
-                return null;
-                //return Sprite.EMPTY.getImage();
+                return Sprite.EMPTY.getImage();
         }
     }
 }
