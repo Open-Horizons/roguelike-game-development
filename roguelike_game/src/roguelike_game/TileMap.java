@@ -25,7 +25,7 @@ public class TileMap {
     
     public int size;
     
-    private int[][] tiles;
+    public int[][] tiles;
     
     public TileMap(Roguelike_game game, int width, int height) {
         this.game = game;
