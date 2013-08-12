@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 
     public static Sprite PLAYER = new Sprite(64, 0, 1, SpriteSheet.CHARACTERS);
-    public static Sprite EMPTY  = new Sprite(64, 1, 0, SpriteSheet.CHARACTERS);
-    public static Sprite WALL   = new Sprite(64, 2, 0, SpriteSheet.CHARACTERS);
+    public static Sprite EMPTY  = new Sprite(64, 0, 0, SpriteSheet.CHARACTERS);
+    public static Sprite WALL   = new Sprite(64, 1, 0, SpriteSheet.CHARACTERS);
     
     public final int SIZE;
     public int x, y;
