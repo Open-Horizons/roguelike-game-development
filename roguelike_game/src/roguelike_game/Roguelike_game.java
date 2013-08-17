@@ -22,7 +22,7 @@ public class Roguelike_game extends JFrame {
         tilemap.randomMap();
         move = new Movement();
         
-        player = new Player(10, 10, tilemap.size, Sprite.PLAYER, tilemap);
+        player = new Player(10, 10, tilemap.size, Sprite.PLAYER_UP, tilemap);
         
         painting = new Painting(this);
         this.addKeyListener(move);
@@ -70,15 +70,19 @@ public class Roguelike_game extends JFrame {
                 move.update();
                 if(wait == 1000000000) {
                     if(move.UP && !collision(0, -1)) {
+                        player.setSprite(Sprite.PLAYER_UP);
                         player.setY(player.getY() - 1);
                     }
                     if(move.DOWN && !collision(0, 1)) {
+                        player.setSprite(Sprite.PLAYER_DOWN);
                         player.setY(player.getY() + 1);
                     }
                     if(move.LEFT && !collision(-1, 0)) {
+                        player.setSprite(Sprite.PLAYER_LEFT);
                         player.setX(player.getX() - 1);
                     }
                     if(move.RIGHT && !collision(1, 0)) {
+                        player.setSprite(Sprite.PLAYER_RIGHT);
                         player.setX(player.getX() + 1);
                     }
                     repaint();

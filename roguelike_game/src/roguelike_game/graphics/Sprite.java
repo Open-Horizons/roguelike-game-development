@@ -4,7 +4,11 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    public static Sprite PLAYER = new Sprite(64, 0, 1, SpriteSheet.CHARACTERS);
+    public static Sprite PLAYER_UP    = new Sprite(64, 0, 1, SpriteSheet.CHARACTERS);
+    public static Sprite PLAYER_LEFT  = new Sprite(64, 0, 2, SpriteSheet.CHARACTERS);
+    public static Sprite PLAYER_DOWN  = new Sprite(64, 0, 3, SpriteSheet.CHARACTERS);
+    public static Sprite PLAYER_RIGHT = new Sprite(64, 0, 4, SpriteSheet.CHARACTERS);
+    
     public static Sprite EMPTY  = new Sprite(64, 0, 0, SpriteSheet.CHARACTERS);
     public static Sprite WALL   = new Sprite(64, 1, 0, SpriteSheet.CHARACTERS);
     
