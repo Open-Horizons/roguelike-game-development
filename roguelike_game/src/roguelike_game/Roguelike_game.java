@@ -13,11 +13,12 @@ public class Roguelike_game extends JFrame {
     public Player player;
     public Movement move;
     public boolean running = false;
-    
+    public String version = "Rogue Game - Pre-Alpha build v0.0.1";
     private Painting painting;
     
     public Roguelike_game() {
-        super("Rogue Game");
+  
+        
         tilemap = new TileMap(this, 34, 18);
         tilemap.randomMap();
         move = new Movement();
@@ -65,6 +66,7 @@ public class Roguelike_game extends JFrame {
         
         @Override
         public void run() {
+            game.setTitle(version);
             int wait = 0;
             while(running) {
                 move.update();
@@ -96,7 +98,7 @@ public class Roguelike_game extends JFrame {
     
     public static void main(String[] args) {
         Roguelike_game game = new Roguelike_game();
-        game.setSize(1110, 620);
+        game.setSize(1117, 620);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setLocationRelativeTo(null);
         game.setVisible(true);
