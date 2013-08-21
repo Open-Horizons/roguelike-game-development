@@ -1,10 +1,12 @@
 roguelike_game/nbproject/private/*
-roguelike_game/build/
-roguelike_game/nbbuild/
-roguelike_game/dist/
-roguelike_game/nbdist/
-roguelike_game/nbactions.xml
-roguelike_game/nb-configuration.xml
+roguelike_game\nbproject\private\
+
+roguelike_game\build\
+roguelike_game\nbbuild\
+roguelike_game\dist\
+roguelike_game\nbdist\
+roguelike_game\nbactions.xml
+roguelike_game\nb-configuration.xml
 
 #GITIGNORE FOR JAVA
 #java specific
