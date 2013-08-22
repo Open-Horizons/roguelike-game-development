@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - openjdk7
+  - oraclejdk7
+
+notifications:
+  irc:
+    channels:
+      - "irc.spotchat.org#open-horizons"
