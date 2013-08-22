@@ -1,4 +1,4 @@
-before_script: cd ./roguelike-game
+before_script: cd ./roguelike_game
 language: java
 jdk:
   - openjdk7
