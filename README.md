@@ -1,4 +1,7 @@
 #Rogue-Like 2D in Java
+
+[![Build Status](https://travis-ci.org/Open-Horizons/roguelike-game-development.png?branch=master)](https://travis-ci.org/Open-Horizons/roguelike-game-development)
+
 ##View:
 Top-Down 
 ##Theme:
