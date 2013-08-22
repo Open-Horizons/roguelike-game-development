@@ -88,7 +88,11 @@ public class Roguelike_game extends JFrame {
                 }
                 repaint();
                 
-                Thread.sleep(FPSRate)
+                try {
+                    Thread.sleep(FPSrate);
+                } catch (InterruptedException e) {
+                    System.out.println("Interrupted thread!");
+                }
             }
         }
     }
