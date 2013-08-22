@@ -3,8 +3,6 @@ language: java
 jdk:
   - openjdk7
   - oraclejdk7
-  - openjdk6
-  - oraclejdk6
 
 notifications:
   irc:
