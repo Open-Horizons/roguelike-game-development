@@ -15,10 +15,9 @@ public class Roguelike_game extends JFrame {
     public boolean running = false;
     public String version = "Rogue Game - Pre-Alpha build v0.0.1";
     private Painting painting;
+    public int FPS = 60;
     
     public Roguelike_game() {
-  
-        
         tilemap = new TileMap(this, 34, 18);
         tilemap.randomMap();
         move = new Movement();
@@ -29,7 +28,6 @@ public class Roguelike_game extends JFrame {
         this.addKeyListener(move);
         
         add(painting);
-
         
         running = true;
         
@@ -53,11 +51,11 @@ public class Roguelike_game extends JFrame {
         }
         
         public boolean collision(int x, int y) {
-            if((player.getX() + x) < 0 || (player.getX() + x) >= game.tilemap.width || (player.getY() + y) < 0 || (player.getY() + y) >= tilemap.height) {
+            if ((player.getX() + x) < 0 || (player.getX() + x) >= game.tilemap.width || (player.getY() + y) < 0 || (player.getY() + y) >= tilemap.height) {
                 return true;
             }
             
-            if(game.tilemap.tiles[player.getY() + y][player.getX() + x] == 0) {
+            if (game.tilemap.tiles[player.getY() + y][player.getX() + x] == 0) {
                 return true;
             } else {
                 return false;
@@ -67,31 +65,30 @@ public class Roguelike_game extends JFrame {
         @Override
         public void run() {
             game.setTitle(version);
-            int wait = 0;
+            int FPSrate = 1000/FPS;
+            boolean buttonPressed = false;
             while(running) {
                 move.update();
-                if(wait == 1000000000) {
-                    if(move.UP && !collision(0, -1)) {
+                
+                buttonPressed = (move.UP || move.DOWN || move.LEFT || move.RIGHT);
+                if (!buttonPressed) {
+                    if (move.UP && !collision(0, -1)) {
                         player.setSprite(Sprite.PLAYER_UP);
                         player.setY(player.getY() - 1);
-                    }
-                    if(move.DOWN && !collision(0, 1)) {
+                    } else if (move.DOWN && !collision(0, 1)) {
                         player.setSprite(Sprite.PLAYER_DOWN);
                         player.setY(player.getY() + 1);
-                    }
-                    if(move.LEFT && !collision(-1, 0)) {
+                    } else if (move.LEFT && !collision(-1, 0)) {
                         player.setSprite(Sprite.PLAYER_LEFT);
                         player.setX(player.getX() - 1);
-                    }
-                    if(move.RIGHT && !collision(1, 0)) {
+                    } else if (move.RIGHT && !collision(1, 0)) {
                         player.setSprite(Sprite.PLAYER_RIGHT);
                         player.setX(player.getX() + 1);
                     }
-                    repaint();
-                    wait = 0;
-                } else {
-                    wait++;
                 }
+                repaint();
+                
+                Thread.sleep(FPSRate)
             }
         }
     }
