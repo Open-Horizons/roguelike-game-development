@@ -66,12 +66,15 @@ public class Roguelike_game extends JFrame {
         public void run() {
             game.setTitle(version);
             int FPSrate = 1000/FPS;
-            boolean buttonPressed = false;
+            
+            boolean startCycle = false;
+            int cycles = 0;
+            
+            boolean isCycling = false; // check if it's still running the animation
             while(running) {
                 move.update();
                 
-                buttonPressed = (move.UP || move.DOWN || move.LEFT || move.RIGHT);
-                if (!buttonPressed) {
+                if (!isCycling) {
                     if (move.UP && !collision(0, -1)) {
                         player.setSprite(Sprite.PLAYER_UP);
                         player.setY(player.getY() - 1);
@@ -85,13 +88,30 @@ public class Roguelike_game extends JFrame {
                         player.setSprite(Sprite.PLAYER_RIGHT);
                         player.setX(player.getX() + 1);
                     }
+                    
+                    // set delay
+                    isCycling = true;
+                    cycles = 0;
+                    
+                    startCycle = true; // trigger cycling
                 }
+                
+                if (cycles == 60) {
+                    startCycle = false; // stop cycling
+                    if (isCycling) {
+                        isCycling = false; // allow next key press to occur
+                    }
+                }
+                
                 repaint();
                 
                 try {
                     Thread.sleep(FPSrate);
                 } catch (InterruptedException e) {
                     System.out.println("Interrupted thread!");
+                }
+                if (startCycle) {
+                	cycles++;
                 }
             }
         }
