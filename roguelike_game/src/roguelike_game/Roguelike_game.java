@@ -67,33 +67,79 @@ public class Roguelike_game extends JFrame {
             game.setTitle(version);
             int FPSrate = 1000/FPS;
             
-            boolean isPressed = false;
-            boolean wait = false;
-            while(running) {
+            boolean[] wait = {false, false, false, false};
+            while (running) {
                 move.update();
-                
-                isPressed = (move.UP || move.DOWN || move.LEFT || move.RIGHT);
-                
-                if (wait) {
-                    if (!isPressed) {
-                        wait = false;
+
+                for (byte i = 0; i < wait.length; i++) {
+                    boolean isPressed = false;
+                    switch (i) {
+                        case 0:
+                            isPressed = move.UP;
+                            break;
+                        case 1:
+                            isPressed = move.DOWN;
+                            break;
+                        case 2:
+                            isPressed = move.LEFT;
+                            break;
+                        case 3:
+                            isPressed = move.RIGHT;
+                            break;
                     }
-                } else if (isPressed) {
-                    if (move.UP && !collision(0, -1)) {
-                        player.setSprite(Sprite.PLAYER_UP);
-                        player.setY(player.getY() - 1);
-                    } else if (move.DOWN && !collision(0, 1)) {
-                        player.setSprite(Sprite.PLAYER_DOWN);
-                        player.setY(player.getY() + 1);
-                    } else if (move.LEFT && !collision(-1, 0)) {
-                        player.setSprite(Sprite.PLAYER_LEFT);
-                        player.setX(player.getX() - 1);
-                    } else if (move.RIGHT && !collision(1, 0)) {
-                        player.setSprite(Sprite.PLAYER_RIGHT);
-                        player.setX(player.getX() + 1);
+                
+                    if (wait[i]) {
+                        if (!isPressed) {
+                            wait[i] = false;
+                        }
+                    } else if (isPressed) {
+                        Sprite sprite = null;
+                        int posX = 0, posY = 0;
+                        boolean isMove = false;
+                        
+                        switch (i) {
+                        case 0:
+                            if (!collision(0, -1)) {
+                                sprite = Sprite.PLAYER_UP;
+                                posX = player.getX();
+                                posY = player.getY() - 1;
+                                isMove = true;
+                            }
+                            break;
+                        case 1:
+                            if (!collision(0, 1)) {
+                                sprite = Sprite.PLAYER_DOWN;
+                                posX = player.getX();
+                                posY = player.getY() + 1;
+                                isMove = true;
+                            }
+                            break;
+                        case 2:
+                            if (!collision(-1, 0)) {
+                                sprite = Sprite.PLAYER_LEFT;
+                                posX = player.getX() - 1;
+                                posY = player.getY();
+                                isMove = true;
+                            }
+                            break;
+                        case 3:
+                            if (!collision(1, 0)) {
+                                sprite = Sprite.PLAYER_RIGHT;
+                                posX = player.getX() + 1;
+                                posY = player.getY();
+                                isMove = true;
+                            }
+                            break;
+                        }
+                        if (isMove) {
+                            System.out.println("Moving player to " + posY + ", " + posX + ".");
+                            player.setSprite(sprite);
+                            player.setY(posY);
+                            player.setX(posX);
+                        }
+                        
+                        wait[i] = true;
                     }
-                    
-                    wait = true;
                 }
                 
                 repaint();
