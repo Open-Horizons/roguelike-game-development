@@ -16,7 +16,11 @@ public class Movement implements KeyListener{
     public boolean DOWN      = false;
     public boolean LEFT      = false;
     public boolean RIGHT     = false;
-    public boolean INVENTORY = false;
+    
+    private boolean prevUP = false;
+    private boolean prevDOWN = false;
+    private boolean prevLEFT = false;
+    private boolean prevRIGHT = false;
     
     private boolean[] key = new boolean[500];
     
@@ -32,16 +36,27 @@ public class Movement implements KeyListener{
         LEFT = key[KeyEvent.VK_LEFT];
         RIGHT = key[KeyEvent.VK_RIGHT];
         
-        //System.out.println("up = " + UP);
-        //System.out.println("DOWN = " + DOWN);
-        //System.out.println("LEFT = " + LEFT);
-        //System.out.println("RIGHT = " + RIGHT);
+        if (UP != prevUP) {
+            System.out.println("UP changed! UP: " + UP);
+            prevUP = UP;
+        }
+        if (DOWN != prevDOWN) {
+            System.out.println("DOWN changed! DOWN: " + DOWN);
+            prevDOWN = DOWN;
+        }
+        if (LEFT != prevLEFT) {
+            System.out.println("LEFT changed! LEFT: " + LEFT);
+            prevLEFT = LEFT;
+        }
+        if (RIGHT != prevRIGHT) {
+            System.out.println("RIGHT changed! RIGHT: " + RIGHT);
+            prevRIGHT = RIGHT;
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
         key[ke.getKeyCode()] = true;
-        System.out.println("key pressed");
     }
 
     @Override
