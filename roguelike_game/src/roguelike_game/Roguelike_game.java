@@ -158,6 +158,7 @@ public class Roguelike_game extends JFrame {
         game.setSize(1117, 620);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setLocationRelativeTo(null);
+        game.setTitle(game.version);
         game.setVisible(true);
     }
 }
