@@ -22,9 +22,7 @@ public class TileMap {
     
     public int width;
     public int height;
-    
     public int size;
-    
     public int[][] tiles;
     
     public TileMap(Roguelike_game game, int width, int height) {
@@ -63,7 +61,8 @@ public class TileMap {
             case 0:
                 return Sprite.WALL.getImage();
             default:
-                return Sprite.EMPTY.getImage();
+                //if don't know number inputed then send floor image
+                return Sprite.FLOOR.getImage();
         }
     }
 }
