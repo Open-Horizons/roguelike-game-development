@@ -17,7 +17,7 @@ public class Roguelike_game extends JFrame {
     public String version = "Rogue Game - Pre-Alpha build v0.0.1";
     private Painting painting;
     private InventoryPanel inventorypane;
-    public int FPS = 60;
+    public int FPS = 10;
     
     public Roguelike_game() {
         tilemap = new TileMap(this, 34, 18);
