@@ -20,6 +20,7 @@ import roguelike_game.graphics.Sprite;
         private Player player;
         private Movement move;
         private TileMap map;
+   
         
         public Painting(Roguelike_game game) {
             this.game = game;
@@ -58,6 +59,7 @@ import roguelike_game.graphics.Sprite;
             
             boolean[] wait = {false, false, false, false};
             while (game.running) {
+                game.counter=game.counter+1;
                 move.update();
 
                 for (byte i = 0; i < wait.length; i++) {
@@ -137,6 +139,10 @@ import roguelike_game.graphics.Sprite;
                     Thread.sleep(FPSrate);
                 } catch (InterruptedException e) {
                     System.out.println("Interrupted thread!");
+                }
+          // FPS Counter, prints amount of frames displayed every second
+            if((game.counter%game.FPS) == 0){
+            System.out.println("Frames: "+game.counter);
                 }
             }
         }
