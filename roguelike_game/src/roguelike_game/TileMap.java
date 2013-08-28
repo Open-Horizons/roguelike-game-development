@@ -37,7 +37,7 @@ public class TileMap {
         Random rand = new Random(1200);
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
-                int r = rand.nextInt(3);
+                int r = rand.nextInt(7);
                 System.out.println("rand = " + r);
                 tiles[y][x] = r;
             }
@@ -48,10 +48,10 @@ public class TileMap {
         
     }
     
-    public void render(Graphics g) {
+    public void render(Graphics g, int scrollx, int scrolly) {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
-                g.drawImage(findImage(tiles[y][x]), x * size, y * size, size, size, null);
+                g.drawImage(findImage(tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
             }
         } 
     }

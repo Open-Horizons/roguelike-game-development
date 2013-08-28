@@ -59,7 +59,7 @@ public class Player {
         this.sprite = sprite;
     }
     
-    public void render(Graphics g) {
-        g.drawImage(sprite.getImage(), x * size, y * size, size, size, null);
+    public void render(Graphics g, int scrollx, int scrolly) {
+        g.drawImage(sprite.getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
     }
 }

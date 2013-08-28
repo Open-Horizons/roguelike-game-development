@@ -20,11 +20,11 @@ public class Roguelike_game extends JFrame {
     public int FPS = 60;
     public int counter = 0;
     public Roguelike_game() {
-        tilemap = new TileMap(this, 34, 18);
+        tilemap = new TileMap(this, 100, 100);
         tilemap.randomMap();
         move = new Movement();
         
-        player = new Player(10, 10, tilemap.size, Sprite.PLAYER_UP, tilemap);
+        player = new Player(13, 9, tilemap.size, Sprite.PLAYER_UP, tilemap);
         
         inventorypane = new InventoryPanel(this);
         painting = new Painting(this);

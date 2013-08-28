@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import roguelike_game.entity.Player;
 import roguelike_game.events.Movement;
 import roguelike_game.graphics.Sprite;
+import roguelike_game.transport.Transport;
 
 /**
  *
@@ -20,7 +21,7 @@ import roguelike_game.graphics.Sprite;
         private Player player;
         private Movement move;
         private TileMap map;
-   
+        private Camera cam = new Camera();
         
         public Painting(Roguelike_game game) {
             this.game = game;
@@ -33,8 +34,9 @@ import roguelike_game.graphics.Sprite;
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            game.tilemap.render(g);
-            game.player.render(g);
+            g.drawImage(Sprite.WALL.getImage(), 0, 0, 1100, 600, null);
+            game.tilemap.render(g, cam.x, cam.y);
+            game.player.render(g, cam.x, cam.y);
         }
         
         public boolean collision(int x, int y) {
@@ -87,37 +89,47 @@ import roguelike_game.graphics.Sprite;
                         Sprite sprite = null;
                         int posX = 0, posY = 0;
                         boolean isMove = false;
+                        int speed = 0;
+                        if(move.RUNNING) {
+                            speed = Transport.CAR.getSpeed();
+                        } else {
+                            speed = Transport.WALK.getSpeed();
+                        }
                         
                         switch (i) {
                         case 0:
-                            if (!collision(0, -1)) {
+                            if (!collision(0, -speed)) {
                                 sprite = Sprite.PLAYER_UP;
                                 posX = player.getX();
-                                posY = player.getY() - 1;   
+                                posY = player.getY() - speed;
+                                cam.y -= player.getSize() * speed;
                                 isMove = true;
                             }
                             break;
                         case 1:
-                            if (!collision(0, 1)) {
+                            if (!collision(0, speed)) {
                                 sprite = Sprite.PLAYER_DOWN;
                                 posX = player.getX();
-                                posY = player.getY() + 1;
+                                posY = player.getY() + speed;
+                                cam.y += player.getSize() * speed;
                                 isMove = true;
                             }
                             break;
                         case 2:
-                            if (!collision(-1, 0)) {
+                            if (!collision(-speed, 0)) {
                                 sprite = Sprite.PLAYER_LEFT;
-                                posX = player.getX() - 1;
+                                posX = player.getX() - speed;
                                 posY = player.getY();
+                                cam.x -= player.getSize() * speed;
                                 isMove = true;
                             }
                             break;
                         case 3:
-                            if (!collision(1, 0)) {
+                            if (!collision(speed, 0)) {
                                 sprite = Sprite.PLAYER_RIGHT;
-                                posX = player.getX() + 1;
+                                posX = player.getX() + speed;
                                 posY = player.getY();
+                                cam.x += player.getSize() * speed;
                                 isMove = true;
                             }
                             break;
@@ -140,9 +152,10 @@ import roguelike_game.graphics.Sprite;
                 } catch (InterruptedException e) {
                     System.out.println("Interrupted thread!");
                 }
-          // FPS Counter, prints amount of frames displayed every second
-            if((game.counter%game.FPS) == 0){
-            System.out.println("Frames: "+game.counter);
+                
+                // FPS Counter, prints amount of frames displayed every second
+                if((game.counter % game.FPS) == 0){
+                    System.out.println("Frames: " + game.counter);
                 }
             }
         }
