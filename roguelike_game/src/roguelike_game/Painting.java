@@ -89,13 +89,8 @@ import roguelike_game.transport.Transport;
                         Sprite sprite = null;
                         int posX = 0, posY = 0;
                         boolean isMove = false;
-                        int speed = 0;
-                        if(move.RUNNING) {
-                            speed = Transport.CAR.getSpeed();
-                        } else {
-                            speed = Transport.WALK.getSpeed();
-                        }
                         
+                        int speed = 1;
                         switch (i) {
                         case 0:
                             if (!collision(0, -speed)) {

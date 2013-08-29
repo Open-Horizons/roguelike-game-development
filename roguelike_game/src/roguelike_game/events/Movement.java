@@ -17,8 +17,6 @@ public class Movement implements KeyListener{
     public boolean LEFT      = false;
     public boolean RIGHT     = false;
     
-    public boolean RUNNING   = true; 
-    
     private boolean prevUP = false;
     private boolean prevDOWN = false;
     private boolean prevLEFT = false;
@@ -67,11 +65,5 @@ public class Movement implements KeyListener{
     }
     
     @Override
-    public void keyTyped(KeyEvent ke) {
-        int code = ke.getKeyCode();
-        if(code == KeyEvent.VK_SHIFT) {
-            RUNNING = !RUNNING;
-            System.out.println("running = " + RUNNING);
-        }
-    }    
+    public void keyTyped(KeyEvent ke) {}    
 }

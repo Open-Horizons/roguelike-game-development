@@ -37,7 +37,7 @@ public class TileMap {
         Random rand = new Random(1200);
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
-                int r = rand.nextInt(7);
+                int r = rand.nextInt(3);
                 System.out.println("rand = " + r);
                 tiles[y][x] = r;
             }
