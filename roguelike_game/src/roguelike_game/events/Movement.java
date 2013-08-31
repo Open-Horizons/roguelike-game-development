@@ -17,10 +17,13 @@ public class Movement implements KeyListener{
     public boolean LEFT      = false;
     public boolean RIGHT     = false;
     
+    public boolean OPEN_DEV = false;
+    
     private boolean prevUP = false;
     private boolean prevDOWN = false;
     private boolean prevLEFT = false;
     private boolean prevRIGHT = false;
+    
     
     private boolean[] key = new boolean[500];
     
@@ -57,6 +60,11 @@ public class Movement implements KeyListener{
     @Override
     public void keyPressed(KeyEvent ke) {
         key[ke.getKeyCode()] = true;
+        
+        if (ke.getKeyCode() == KeyEvent.VK_BACK_QUOTE) {// && ke.getModifiersEx() == KeyEvent.SHIFT_DOWN_MASK) {
+            System.out.println("tilda " + OPEN_DEV);
+            OPEN_DEV = !OPEN_DEV;
+        }
     }
 
     @Override

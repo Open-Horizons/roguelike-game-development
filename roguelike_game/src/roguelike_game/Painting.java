@@ -7,10 +7,10 @@ package roguelike_game;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+import roguelike_game.developer.DeveloperConsole;
 import roguelike_game.entity.Player;
 import roguelike_game.events.Movement;
 import roguelike_game.graphics.Sprite;
-import roguelike_game.transport.Transport;
 
 /**
  *
@@ -64,6 +64,11 @@ import roguelike_game.transport.Transport;
                 game.counter=game.counter+1;
                 move.update();
 
+                if(move.OPEN_DEV) {
+                    DeveloperConsole.getInstance().setVisible(true);
+                    move.OPEN_DEV = false;
+                }
+                
                 for (byte i = 0; i < wait.length; i++) {
                     boolean isPressed = false;
                     switch (i) {
