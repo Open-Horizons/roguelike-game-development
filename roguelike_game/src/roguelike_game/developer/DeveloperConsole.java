@@ -45,7 +45,7 @@ public class DeveloperConsole extends JFrame {
     }
     
     public static DeveloperConsole getInstance() {
-        if(console == null) {
+        if (console == null) {
             console = new DeveloperConsole();
             return console;
         } else {

@@ -61,7 +61,7 @@ import roguelike_game.graphics.Sprite;
             
             boolean[] wait = {false, false, false, false};
             while (game.running) {
-                game.counter=game.counter+1;
+                game.counter++;
                 move.update();
 
                 if(move.OPEN_DEV) {
@@ -154,8 +154,9 @@ import roguelike_game.graphics.Sprite;
                 }
                 
                 // FPS Counter, prints amount of frames displayed every second
-                if((game.counter % game.FPS) == 0){
+                if ((game.counter % game.FPS) == 0){
                     System.out.println("Frames: " + game.counter);
+                    game.counter = 0;
                 }
             }
         }
