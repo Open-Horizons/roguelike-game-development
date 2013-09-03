@@ -34,7 +34,11 @@ import roguelike_game.graphics.Sprite;
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(Sprite.WALL.getImage(), 0, 0, 1100, 600, null);
+            for(int y = 0; y < 19; y++) {
+                for (int x = 0; x < 28; x++) {
+                    g.drawImage(Sprite.WALL.getImage(), x * map.size, y * map.size, map.size, map.size, null);
+                }
+            }
             game.tilemap.render(g, cam.x, cam.y);
             game.player.render(g, cam.x, cam.y);
         }

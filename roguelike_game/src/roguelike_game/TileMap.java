@@ -9,6 +9,7 @@ package roguelike_game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Random;
+import roguelike_game.entity.item.Item;
 import roguelike_game.graphics.Sprite;
 
 /**
@@ -24,6 +25,7 @@ public class TileMap {
     public int height;
     public int size;
     public int[][] tiles;
+    public Item[][] items;
     
     public TileMap(Roguelike_game game, int width, int height) {
         this.game = game;
@@ -31,6 +33,7 @@ public class TileMap {
         this.height = height;
         size = 32;
         tiles = new int[height][width];
+        items = new Item[height][width];
     }
     
     public void randomMap() {
@@ -40,6 +43,16 @@ public class TileMap {
                 int r = rand.nextInt(3);
                 System.out.println("rand = " + r);
                 tiles[y][x] = r;
+            }
+        } 
+        for(int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if(tiles[y][x] != 0) {
+                    int r = rand.nextInt(20);
+                    if(r == 0) {
+                        items[y][x] = Item.weapon;
+                    }
+                }
             }
         }
     }
@@ -53,7 +66,16 @@ public class TileMap {
             for(int x = 0; x < width; x++) {
                 g.drawImage(findImage(tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
             }
-        } 
+        }
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                if(items[y][x] == null) {
+                    continue;
+                } else {
+                g.drawImage(items[y][x].getSprite().getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
+                }
+            }
+        }   
     }
     
     private Image findImage(int i) {
