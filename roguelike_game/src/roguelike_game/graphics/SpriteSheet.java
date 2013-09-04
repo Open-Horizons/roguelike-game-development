@@ -6,7 +6,9 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 	public static SpriteSheet CHARACTERS = new SpriteSheet("/sprites/character.png");
-	
+	public static SpriteSheet SPRITES = new SpriteSheet("/sprites/sprites.png");
+        public static SpriteSheet WEAPONS = new SpriteSheet("/sprites/weapons2.png");
+        
 	private BufferedImage bs;
 	
 	public SpriteSheet(String filename) {

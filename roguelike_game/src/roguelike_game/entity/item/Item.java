@@ -12,7 +12,7 @@ import roguelike_game.graphics.Sprite;
  * @author andyafw
  */
 public class Item {
-    public static Item weapon = new Item(Sprite.EMPTY);
+    public static Item weapon = new Item(Sprite.WEAPON);
     
     protected int x, y;
     protected Sprite sprite;
