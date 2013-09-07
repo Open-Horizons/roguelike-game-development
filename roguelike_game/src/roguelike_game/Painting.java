@@ -56,7 +56,19 @@ import roguelike_game.graphics.Sprite;
         }
         
         public void update() {
+            System.out.println("mouse pos " + (move.MOSX + cam.x) / map.size + " , " + ((move.MOSY + cam.y) / map.size - 1));
+            System.out.println("player pos " + player.getX() + " , " + player.getY());
+            //System.out.println("cam " + cam.x + " , " + cam.y);
+        }
+        
+        public void updatePlayer(Sprite sprite, int x, int y) {
+            player.setSprite(sprite);
+            player.setX(player.getX() + x);
+            player.setY(player.getY() + y);
+            cam.x += player.getSize() * x;
+            cam.y += player.getSize() * y;
             
+            //System.out.println("Moving player to " + player.getX() + ", " + player.getY() + ".");
         }
         
         @Override
@@ -65,6 +77,7 @@ import roguelike_game.graphics.Sprite;
             
             boolean[] wait = {false, false, false, false};
             while (game.running) {
+                game.setTitle(game.version);
                 game.counter++;
                 move.update();
 
@@ -95,61 +108,37 @@ import roguelike_game.graphics.Sprite;
                             wait[i] = false;
                         }
                     } else if (isPressed) {
-                        Sprite sprite = null;
-                        int posX = 0, posY = 0;
-                        boolean isMove = false;
                         
                         int speed = 1;
                         switch (i) {
                         case 0:
                             if (!collision(0, -speed)) {
-                                sprite = Sprite.PLAYER_UP;
-                                posX = player.getX();
-                                posY = player.getY() - speed;
-                                cam.y -= player.getSize() * speed;
-                                isMove = true;
+                                updatePlayer(Sprite.PLAYER_UP, 0, -speed);
                             }
                             break;
                         case 1:
                             if (!collision(0, speed)) {
-                                sprite = Sprite.PLAYER_DOWN;
-                                posX = player.getX();
-                                posY = player.getY() + speed;
-                                cam.y += player.getSize() * speed;
-                                isMove = true;
+                                updatePlayer(Sprite.PLAYER_DOWN, 0, speed);
                             }
                             break;
                         case 2:
                             if (!collision(-speed, 0)) {
-                                sprite = Sprite.PLAYER_LEFT;
-                                posX = player.getX() - speed;
-                                posY = player.getY();
-                                cam.x -= player.getSize() * speed;
-                                isMove = true;
+                                updatePlayer(Sprite.PLAYER_LEFT, -speed, 0);
                             }
                             break;
                         case 3:
                             if (!collision(speed, 0)) {
-                                sprite = Sprite.PLAYER_RIGHT;
-                                posX = player.getX() + speed;
-                                posY = player.getY();
-                                cam.x += player.getSize() * speed;
-                                isMove = true;
+                                updatePlayer(Sprite.PLAYER_RIGHT, speed, 0);
                             }
                             break;
-                        }
-                        if (isMove) {
-                            System.out.println("Moving player to " + posY + ", " + posX + ".");
-                            player.setSprite(sprite);
-                            player.setY(posY);
-                            player.setX(posX);
-                        }
-                        
+                        }                        
                         wait[i] = true;
                     }
                 }
                 
                 repaint();
+                
+                update();
                 
                 try {
                     Thread.sleep(FPSrate);
@@ -160,6 +149,7 @@ import roguelike_game.graphics.Sprite;
                 // FPS Counter, prints amount of frames displayed every second
                 if ((game.counter % game.FPS) == 0){
                     System.out.println("Frames: " + game.counter);
+                    game.version = "Rogue Game - Pre-Alpha build v0.0.1 - frames - " + game.counter;
                     game.counter = 0;
                 }
             }

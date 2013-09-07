@@ -6,12 +6,16 @@ package roguelike_game.events;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import roguelike_game.Roguelike_game;
 
 /**
  *
  * @author andyafw
  */
-public class Movement implements KeyListener{
+public class Movement implements KeyListener, MouseListener, MouseMotionListener {
     public boolean UP        = false;
     public boolean DOWN      = false;
     public boolean LEFT      = false;
@@ -24,6 +28,8 @@ public class Movement implements KeyListener{
     private boolean prevLEFT = false;
     private boolean prevRIGHT = false;
     
+    public int MOSX = 0;
+    public int MOSY = 0;
     
     private boolean[] key = new boolean[500];
     
@@ -74,4 +80,32 @@ public class Movement implements KeyListener{
     
     @Override
     public void keyTyped(KeyEvent ke) {}    
+
+    @Override
+    public void mouseClicked(MouseEvent me) {}
+
+    @Override
+    public void mousePressed(MouseEvent me) {}
+
+    @Override
+    public void mouseReleased(MouseEvent me) {}
+
+    @Override
+    public void mouseEntered(MouseEvent me) {}
+
+    @Override
+    public void mouseExited(MouseEvent me) {}
+
+    @Override
+    public void mouseDragged(MouseEvent me) {}
+
+    @Override
+    public void mouseMoved(MouseEvent me) {
+        MOSX = me.getX();
+        MOSY = me.getY();
+    }
+    
+    public void mouseUpdate(Roguelike_game game) {
+        
+    }
 }

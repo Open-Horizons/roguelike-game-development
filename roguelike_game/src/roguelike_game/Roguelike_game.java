@@ -1,11 +1,7 @@
 package roguelike_game;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import roguelike_game.developer.DeveloperConsole;
 import roguelike_game.entity.Player;
 import roguelike_game.events.Movement;
 import roguelike_game.graphics.Sprite;
@@ -30,6 +26,8 @@ public class Roguelike_game extends JFrame {
         inventorypane = new InventoryPanel(this);
         painting = new Painting(this);
         addKeyListener(move);
+        addMouseListener(move);
+        addMouseMotionListener(move);
         
         add(painting, BorderLayout.CENTER);
         add(inventorypane, BorderLayout.EAST);
