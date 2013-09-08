@@ -4,6 +4,7 @@
  */
 package roguelike_game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -41,6 +42,10 @@ import roguelike_game.graphics.Sprite;
             }
             game.tilemap.render(g, cam.x, cam.y);
             game.player.render(g, cam.x, cam.y);
+            if(move.RIGHTCLICK) {
+                g.setColor(Color.yellow);
+                g.fillRect(move.MOSX, move.MOSY, 100, 10);
+            }
         }
         
         public boolean collision(int x, int y) {

@@ -22,6 +22,7 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     public boolean RIGHT     = false;
     
     public boolean OPEN_DEV = false;
+    public boolean RIGHTCLICK = false;
     
     private boolean prevUP = false;
     private boolean prevDOWN = false;
@@ -82,7 +83,13 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     public void keyTyped(KeyEvent ke) {}    
 
     @Override
-    public void mouseClicked(MouseEvent me) {}
+    public void mouseClicked(MouseEvent me) {
+        if(me.getButton() == MouseEvent.BUTTON3) {
+            MOSX = me.getX();
+            MOSY = me.getY();
+            RIGHTCLICK = true;
+        }
+    }
 
     @Override
     public void mousePressed(MouseEvent me) {}
@@ -101,11 +108,5 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
 
     @Override
     public void mouseMoved(MouseEvent me) {
-        MOSX = me.getX();
-        MOSY = me.getY();
-    }
-    
-    public void mouseUpdate(Roguelike_game game) {
-        
     }
 }
