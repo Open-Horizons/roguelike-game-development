@@ -9,7 +9,7 @@ package roguelike_game;
  * @author andyafw
  */
 public class Camera {
-    int x, y;
+    public int x, y;
     
     public Camera() {
         x = 0;

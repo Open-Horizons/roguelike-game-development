@@ -20,9 +20,12 @@ import roguelike_game.graphics.Sprite;
     public class Painting extends JPanel implements Runnable {
         private Roguelike_game game;
         private Player player;
-        private Movement move;
+        public Movement move;
         private TileMap map;
-        private Camera cam = new Camera();
+        public Camera cam = new Camera();
+        
+        public int width = 1100;
+        public int height = 600;
         
         public Painting(Roguelike_game game) {
             this.game = game;
@@ -35,16 +38,16 @@ import roguelike_game.graphics.Sprite;
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            for(int y = 0; y < 19; y++) {
-                for (int x = 0; x < 28; x++) {
-                    g.drawImage(Sprite.WALL.getImage(), x * map.size, y * map.size, map.size, map.size, null);
+            if(!game.mainmenu.menuon) {
+                for(int y = 0; y < 19; y++) {
+                    for (int x = 0; x < 28; x++) {
+                        g.drawImage(Sprite.WALL.getImage(), x * map.size, y * map.size, map.size, map.size, null);
+                    }
                 }
-            }
-            game.tilemap.render(g, cam.x, cam.y);
-            game.player.render(g, cam.x, cam.y);
-            if(move.RIGHTCLICK) {
-                g.setColor(Color.yellow);
-                g.fillRect(move.MOSX, move.MOSY, 100, 10);
+                game.tilemap.render(g, cam.x, cam.y);
+                game.player.render(g, cam.x, cam.y);
+            } else {
+                game.mainmenu.paint(g);
             }
         }
         
@@ -63,7 +66,6 @@ import roguelike_game.graphics.Sprite;
         public void update() {
             System.out.println("mouse pos " + (move.MOSX + cam.x) / map.size + " , " + ((move.MOSY + cam.y) / map.size - 1));
             System.out.println("player pos " + player.getX() + " , " + player.getY());
-            //System.out.println("cam " + cam.x + " , " + cam.y);
         }
         
         public void updatePlayer(Sprite sprite, int x, int y) {
@@ -73,7 +75,7 @@ import roguelike_game.graphics.Sprite;
             cam.x += player.getSize() * x;
             cam.y += player.getSize() * y;
             
-            //System.out.println("Moving player to " + player.getX() + ", " + player.getY() + ".");
+            System.out.println("Moving player to " + player.getX() + ", " + player.getY() + ".");
         }
         
         @Override

@@ -12,18 +12,20 @@ public class Roguelike_game extends JFrame {
     public Movement move;
     public boolean running = false;
     public String version = "Rogue Game - Pre-Alpha build v0.0.1";
-    private Painting painting;
-    private InventoryPanel inventorypane;
+    public Painting painting;
+    public InventoryPanel inventorypane;
+    public MenuScreen mainmenu;
     public int FPS = 60;
     public int counter = 0;
     public Roguelike_game() {
         tilemap = new TileMap(this, 100, 100);
         tilemap.randomMap();
-        move = new Movement();
+        move = new Movement(this);
         
         player = new Player(13, 9, tilemap.size, Sprite.PLAYER_UP, tilemap);
         
         inventorypane = new InventoryPanel(this);
+        mainmenu = new MenuScreen(this);
         painting = new Painting(this);
         addKeyListener(move);
         addMouseListener(move);

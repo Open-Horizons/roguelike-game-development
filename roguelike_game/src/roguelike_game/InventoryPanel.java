@@ -62,6 +62,9 @@ public class InventoryPanel extends JPanel {
                         g.fillRect(x * size, y * size + armor_start, size, size);
                         g.setColor(Color.green);
                         g.drawRect(x * size, y * size + armor_start, size, size);
+                        if(game.player.getEquip(next) != null) {
+                            g.drawImage(game.player.getEquip(next).getSprite().getImage(), x * size, y * size + armor_start, size, size, null);
+                        }
                         next++;
                     }
                 }
@@ -75,6 +78,9 @@ public class InventoryPanel extends JPanel {
                 g.fillRect(x * size, y * size + inventory_start, size, size);
                 g.setColor(Color.yellow);
                 g.drawRect(x * size, y * size + inventory_start, size, size);
+                if(game.player.getItem(x, y) != null) {
+                    g.drawImage(game.player.getItem(x, y).getSprite().getImage(), x * size, y * size + inventory_start, size, size, null);
+                }
             }
         }
     }

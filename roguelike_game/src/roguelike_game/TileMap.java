@@ -37,7 +37,7 @@ public class TileMap {
     }
     
     public void randomMap() {
-        Random rand = new Random(1200);
+        Random rand = new Random(10);
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int r = rand.nextInt(3);
@@ -49,8 +49,13 @@ public class TileMap {
             for (int x = 0; x < width; x++) {
                 if(tiles[y][x] != 0) {
                     int r = rand.nextInt(20);
-                    if(r == 0) {
-                        items[y][x] = Item.weapon;
+                    switch(r) {
+                        case 0:
+                            items[y][x] = Item.SWORD;
+                            break;
+                        case 1:
+                            items[y][x] = Item.WAND;
+                            break;
                     }
                 }
             }
@@ -62,17 +67,21 @@ public class TileMap {
     }
     
     public void render(Graphics g, int scrollx, int scrolly) {
-        for(int y = 0; y < height; y++) {
-            for(int x = 0; x < width; x++) {
+        int startx = Math.max(scrollx / size, 0);
+        int starty = Math.max(scrolly / size, 0);
+        int limitx = Math.min((scrollx + game.painting.width) / 30 + 1, width);
+        int limity = Math.min((scrolly + game.painting.height) / 30 + 1, height);
+        for(int y = starty; y < limity; y++) {
+            for(int x = startx; x < limitx; x++) {
                 g.drawImage(findImage(tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
             }
         }
-        for(int y = 0; y < height; y++) {
-            for(int x = 0; x < width; x++) {
+        for(int y = starty; y < limity; y++) {
+            for(int x = startx; x < limitx; x++) {
                 if(items[y][x] == null) {
                     continue;
                 } else {
-                g.drawImage(items[y][x].getSprite().getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
+                    g.drawImage(items[y][x].getSprite().getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
                 }
             }
         }   
