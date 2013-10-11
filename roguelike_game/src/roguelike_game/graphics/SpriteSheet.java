@@ -8,6 +8,7 @@ public class SpriteSheet {
 	public static SpriteSheet CHARACTERS = new SpriteSheet("/sprites/character.png");
 	public static SpriteSheet SPRITES = new SpriteSheet("/sprites/sprites.png");
         public static SpriteSheet WEAPONS = new SpriteSheet("/sprites/weapons2.png");
+        public static SpriteSheet WALLS = new SpriteSheet("/sprites/walls.png");
         
 	private BufferedImage bs;
 	

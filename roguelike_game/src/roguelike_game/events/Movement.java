@@ -47,10 +47,10 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     }
     
     public void update() {
-        UP = key[KeyEvent.VK_UP];
-        DOWN = key[KeyEvent.VK_DOWN];
-        LEFT = key[KeyEvent.VK_LEFT];
-        RIGHT = key[KeyEvent.VK_RIGHT];
+        UP = key[KeyEvent.VK_UP] || key[KeyEvent.VK_W];
+        DOWN = key[KeyEvent.VK_DOWN] || key[KeyEvent.VK_S];
+        LEFT = key[KeyEvent.VK_LEFT] || key[KeyEvent.VK_A];
+        RIGHT = key[KeyEvent.VK_RIGHT] || key[KeyEvent.VK_D];
         
         if (UP != prevUP) {
             System.out.println("UP changed! UP: " + UP);
@@ -111,8 +111,10 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
         int my = e.getY();
         int scrollx = game.painting.cam.x;
         int scrolly = game.painting.cam.y;
-        int tilex = (mx - scrollx) / game.tilemap.size;
-        int tiley = (my - scrolly) / game.tilemap.size - 1;
+        //int tilex = (mx - scrollx) / game.tilemap.size;
+        //int tiley = (my - scrolly) / game.tilemap.size - 1;
+        int tilex = game.player.getX();
+        int tiley = game.player.getY();
         if(tilex < game.tilemap.width && tilex >= 0 && tiley < game.tilemap.height && tiley >= 0) {
             if(game.tilemap.items[tiley][tilex] != null) {
                 ItemPopupMenu menu = new ItemPopupMenu(game, tilex, tiley);

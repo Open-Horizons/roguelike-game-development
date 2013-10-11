@@ -1,4 +1,4 @@
-package roguelike_game;
+  package roguelike_game;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -15,7 +15,7 @@ public class Roguelike_game extends JFrame {
     public Painting painting;
     public InventoryPanel inventorypane;
     public MenuScreen mainmenu;
-    public int FPS = 60;
+    public int FPS = 100;
     public int counter = 0;
     public Roguelike_game() {
         tilemap = new TileMap(this, 100, 100);

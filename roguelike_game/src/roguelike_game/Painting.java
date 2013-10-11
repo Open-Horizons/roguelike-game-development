@@ -4,7 +4,6 @@
  */
 package roguelike_game;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -38,16 +37,16 @@ import roguelike_game.graphics.Sprite;
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            if(!game.mainmenu.menuon) {
+            if(game.mainmenu.menuon) {
+                game.mainmenu.paint(g);
+            } else {    
                 for(int y = 0; y < 19; y++) {
                     for (int x = 0; x < 28; x++) {
                         g.drawImage(Sprite.WALL.getImage(), x * map.size, y * map.size, map.size, map.size, null);
                     }
                 }
                 game.tilemap.render(g, cam.x, cam.y);
-                game.player.render(g, cam.x, cam.y);
-            } else {
-                game.mainmenu.paint(g);
+                game.player.render(g, cam.x, cam.y);                
             }
         }
         
