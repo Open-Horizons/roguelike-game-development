@@ -1,5 +1,6 @@
 before_script: cd ./roguelike_game
 language: java
+install: ant build
 jdk:
   - openjdk7
   - oraclejdk7
