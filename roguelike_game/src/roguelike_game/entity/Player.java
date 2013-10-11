@@ -21,10 +21,10 @@ public class Player {
     private Sprite sprite;
     private TileMap map;
     
+    protected int items_can_wear = 10;		//helmet, hands, chest armor, belt, ring, pants, left-hand sword, amulet, boots, and right-hand sword
     protected int items_can_hold = 49;
-    protected int items_can_wear = 10;//helmet, hands, chest armor, belt, ring, pants, left-hand sword, amulet, boots, and right-hand sword
-    protected ArrayList<Item> equippedItems = new ArrayList<Item>(10);
-    protected ArrayList<Item> inventory = new ArrayList<Item>(49);
+    protected ArrayList<Item> equippedItems = new ArrayList<Item>(items_can_wear);
+    protected ArrayList<Item> inventory = new ArrayList<Item>(items_can_hold);
     
     public Player(int x, int y, int size, Sprite sprite, TileMap map) {
         this.x = x;

@@ -1,15 +1,15 @@
 <project>
 	<target name="clean">
-		<delete dir="build"/>
+		<delete dir="../build"/>
 	</target>
 
-	<target name="compile">
-		<mkdir dir="build/classes"/>
-		<javac srcdir="src/roguelike_game/" destdir="build/classes"/>
+	<target name="build">
+		<mkdir dir="../build/classes"/>
+		<javac srcdir="src/roguelike_game/" destdir="../build/classes"/>
 	</target>
 
 	<target name="jar">
-		<jar destfile="build/jar/rogueLikeGame.jar" basedir="build/classes">
+		<jar destfile="../build/jar/rogueLikeGame.jar" basedir="../build/classes">
 			<manifest>
 				<attribute name="Main-Class" value="roguelike_game.Roguelike_game"/>
 			</manifest>
@@ -17,6 +17,6 @@
 	</target>
 
 	<target name="run">
-		<java jar="build/jar/rogueLikeGame.jar" fork="true"/>
+		<java jar="../build/jar/rogueLikeGame.jar" fork="true"/>
 	</target>
 </project>

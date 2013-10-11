@@ -33,7 +33,6 @@ public class Roguelike_game extends JFrame {
         
         add(painting, BorderLayout.CENTER);
         add(inventorypane, BorderLayout.EAST);
-        running = true;
         
         Thread thread = new Thread(painting);
         thread.start();
@@ -41,6 +40,7 @@ public class Roguelike_game extends JFrame {
     
     public static void main(String[] args) {
         Roguelike_game game = new Roguelike_game();
+        System.out.println("Passed 1");
         game.setSize(1117, 620);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setLocationRelativeTo(null);
