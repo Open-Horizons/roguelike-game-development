@@ -1,22 +1,31 @@
-<project>
-	<target name="clean">
-		<delete dir="../build"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="roguelike_game" basedir="." default="jar">
+	<property name="src.dir" value="src/roguelike_game/" />
+	<property name="build.dir" value="../build/" />
+	<property name="classes.dir" value="../build/classes/" />
+	<property name="jar.dir" value="../build/jar/" />
+	
+	<target name="clean" description="Delete all generated files">
+		<delete dir="${build.dir}" failonerror="false" />
 	</target>
 
-	<target name="build">
-		<mkdir dir="../build/classes"/>
-		<javac srcdir="src/roguelike_game/" destdir="../build/classes"/>
+	<target name="build" description="Compile sources">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" />
 	</target>
 
-	<target name="jar">
-		<jar destfile="../build/jar/rogueLikeGame.jar" basedir="../build/classes">
+	<target name="jar" description="Archive sources into jar" depends="build">
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="roguelike_game.Roguelike_game"/>
+				<attribute name="Main-Class" value="roguelike_game.Roguelike_game" />
 			</manifest>
+			
+			<fileset dir="." includes="res/**" />
 		</jar>
 	</target>
 
-	<target name="run">
-		<java jar="../build/jar/rogueLikeGame.jar" fork="true"/>
+	<target name="run" description="Run jar file">
+		<java jar="../build/jar/${ant.project.name}.jar" fork="true" />
 	</target>
+	
 </project>
