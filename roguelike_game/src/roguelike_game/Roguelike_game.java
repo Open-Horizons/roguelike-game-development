@@ -1,4 +1,4 @@
-  package roguelike_game;
+package roguelike_game;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -17,8 +17,8 @@ public class Roguelike_game extends JFrame {
     public MenuScreen mainmenu;
     public int FPS = 100;
     public int counter = 0;
+    
     public Roguelike_game() {
-    	running = true;		// Added temporarily for debugging. Activates while loop in Painting.run()
         tilemap = new TileMap(this, 100, 100);
         tilemap.randomMap();
         move = new Movement(this);
@@ -37,6 +37,7 @@ public class Roguelike_game extends JFrame {
         
         Thread thread = new Thread(painting);
         thread.start();
+    	running = true;
     }
     
     public static void main(String[] args) {
