@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import roguelike_game.Roguelike_game;
+import roguelike_game.entity.Player;
+import roguelike_game.graphics.Sprite;
 
 /**
  *
@@ -74,8 +76,8 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() < key.length) {
         key[ke.getKeyCode()] = true;
-        
-            if (ke.getKeyCode() == KeyEvent.VK_BACK_QUOTE) {// && ke.getModifiersEx() == KeyEvent.SHIFT_DOWN_MASK) {
+
+            if (ke.getKeyCode() == KeyEvent.VK_BACK_QUOTE ) {// && ke.getModifiersEx() == KeyEvent.SHIFT_DOWN_MASK) {
                 System.out.println("tilda " + OPEN_DEV);
                 OPEN_DEV = !OPEN_DEV;
             }

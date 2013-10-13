@@ -82,6 +82,9 @@ import roguelike_game.graphics.Sprite;
             int FPSrate = 1000/game.FPS;
             
             boolean[] wait = {false, false, false, false};
+            
+            System.out.println("Before Loop");
+            
             while (game.running) {
                 game.setTitle(game.version);
                 game.counter++;
@@ -142,9 +145,14 @@ import roguelike_game.graphics.Sprite;
                     }
                 }
                 
+                // nanoTime() to measure refresh rate
+                long frameStart = System.nanoTime();
                 repaint();
+                long frameStop = System.nanoTime();
+                long time = frameStop - frameStart;                
+                System.out.println(time);
                 
-                update();
+                // update();
                 
                 try {
                     Thread.sleep(FPSrate);

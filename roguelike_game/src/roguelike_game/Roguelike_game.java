@@ -18,6 +18,7 @@ public class Roguelike_game extends JFrame {
     public int FPS = 100;
     public int counter = 0;
     public Roguelike_game() {
+    	running = true;		// Added temporarily for debugging. Activates while loop in Painting.run()
         tilemap = new TileMap(this, 100, 100);
         tilemap.randomMap();
         move = new Movement(this);

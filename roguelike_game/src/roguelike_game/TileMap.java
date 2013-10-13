@@ -41,7 +41,7 @@ public class TileMap {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int r = rand.nextInt(3);
-                System.out.println("rand = " + r);
+                //System.out.println("rand = " + r);
                 tiles[y][x] = r;
             }
         } 
