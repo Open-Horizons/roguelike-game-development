@@ -1,93 +1,77 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package roguelike_game;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import roguelike_game.developer.DeveloperConsole;
 import roguelike_game.entity.Player;
 import roguelike_game.events.Movement;
+import roguelike_game.graphics.Render;
 import roguelike_game.graphics.Sprite;
 
-/**
- *
- * @author andyafw
- */
-    public class Painting extends JPanel implements Runnable {
-        private Roguelike_game game;
-        private Player player;
-        public Movement move;
-        private TileMap map;
-        public Camera cam = new Camera();
+public class Game extends JFrame implements Runnable {
+    public TileMap tilemap;
+    public Player player;
+    public Movement move;
+    public Camera cam;
+    public Render render;
+    public InventoryPanel inventorypane;
+    public MenuScreen mainmenu;
+    
+    public int FPS = 100;
+    public int counter = 0;
+    public boolean running = false;
+    public String version = "Rogue Game - Pre-Alpha build v0.0.1";
+    
+    public Game() {
+        tilemap = new TileMap(this, 100, 100);
+        tilemap.createRandomMap();
+        move = new Movement(this);
+        cam = new Camera();
+        render = new Render(this);
+        player = new Player(13, 9, Sprite.PLAYER_UP);
         
-        public int width = 1100;
-        public int height = 600;
+        inventorypane = new InventoryPanel(this);
+        mainmenu = new MenuScreen(this);
+        addKeyListener(move);
+        addMouseListener(move);
+        addMouseMotionListener(move);
         
-        public Painting(Roguelike_game game) {
-            this.game = game;
-            player = game.player;
-            move = game.move;
-            map = game.tilemap;
-            setPreferredSize(new Dimension(1100, 600));
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if(game.mainmenu.menuon) {
-                game.mainmenu.paint(g);
-            } else {    
-                for(int y = 0; y < 19; y++) {
-                    for (int x = 0; x < 28; x++) {
-                        g.drawImage(Sprite.WALL.getImage(), x * map.size, y * map.size, map.size, map.size, null);
-                    }
-                }
-                game.tilemap.render(g, cam.x, cam.y);
-                game.player.render(g, cam.x, cam.y);                
-            }
-        }
-        
-        public boolean collision(int x, int y) {
-            if ((player.getX() + x) < 0 || (player.getX() + x) >= game.tilemap.width || (player.getY() + y) < 0 || (player.getY() + y) >= map.height) {
+        add(render, BorderLayout.CENTER);
+        add(inventorypane, BorderLayout.EAST);
+    }
+          public boolean collision(int x, int y) {
+            if ((player.getX() + x) < 0 || (player.getX() + x) >= tilemap.width || (player.getY() + y) < 0 || (player.getY() + y) >= tilemap.height) {
                 return true;
             }
             
-            if (game.tilemap.tiles[player.getY() + y][player.getX() + x] == 0) {
+            if (tilemap.tiles[player.getY() + y][player.getX() + x] == 0) {
                 return true;
             } else {
                 return false;
             }
         }
         
-        public void update() {
-            System.out.println("mouse pos " + (move.MOSX + cam.x) / map.size + " , " + ((move.MOSY + cam.y) / map.size - 1));
-            System.out.println("player pos " + player.getX() + " , " + player.getY());
-        }
-        
         public void updatePlayer(Sprite sprite, int x, int y) {
             player.setSprite(sprite);
             player.setX(player.getX() + x);
             player.setY(player.getY() + y);
-            cam.x += player.getSize() * x;
-            cam.y += player.getSize() * y;
+            cam.x += render.size * x;
+            cam.y += render.size * y;
             
             System.out.println("Moving player to " + player.getX() + ", " + player.getY() + ".");
         }
         
         @Override
         public void run() {
-            int FPSrate = 1000/game.FPS;
+            int FPSrate = 1000/FPS;
             
             boolean[] wait = {false, false, false, false};
             
             System.out.println("Before Loop");
             
-            while (game.running) {
-                game.setTitle(game.version);
-                game.counter++;
+            while (running) {
+                setTitle(version);
+                counter++;
                 move.update();
 
                 if(move.OPEN_DEV) {
@@ -161,11 +145,24 @@ import roguelike_game.graphics.Sprite;
                 }
                 
                 // FPS Counter, prints amount of frames displayed every second
-                if ((game.counter % game.FPS) == 0){
-                    System.out.println("Frames: " + game.counter);
-                    game.version = "Rogue Game - Pre-Alpha build v0.0.1 - frames - " + game.counter;
-                    game.counter = 0;
+                if ((counter % FPS) == 0){
+                    System.out.println("Frames: " + counter);
+                    version = "Rogue Game - Pre-Alpha build v0.0.1 - frames - " + counter;
+                    counter = 0;
                 }
             }
         }
+    
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.setSize(1117, 620);
+        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.setLocationRelativeTo(null);
+        game.setTitle(game.version); 
+        game.setVisible(true);
+        
+        Thread thread = new Thread(game);
+        thread.start();
+        game.running = true;
     }
+}

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author andyafw
  */
 public class InventoryPanel extends JPanel {
-    private Roguelike_game game;
+    private Game game;
     public int width = 7;
     public int height = 7;
     public int size = 32;
@@ -24,7 +24,7 @@ public class InventoryPanel extends JPanel {
     
     public Point[] postions;
     
-    public InventoryPanel(Roguelike_game game) {
+    public InventoryPanel(Game game) {
         this.postions = new Point[10];
         postions[0] = new Point(3, 0); //helmet
         postions[1] = new Point(2, 1); //hands
@@ -62,8 +62,8 @@ public class InventoryPanel extends JPanel {
                         g.fillRect(x * size, y * size + armor_start, size, size);
                         g.setColor(Color.green);
                         g.drawRect(x * size, y * size + armor_start, size, size);
-                        if(game.player.getEquip(next) != null) {
-                            g.drawImage(game.player.getEquip(next).getSprite().getImage(), x * size, y * size + armor_start, size, size, null);
+                        if(game.player.getInventory().getEquip(next) != null) {
+                            g.drawImage(game.player.getInventory().getEquip(next).getSprite().getImage(), x * size, y * size + armor_start, size, size, null);
                         }
                         next++;
                     }
@@ -78,8 +78,8 @@ public class InventoryPanel extends JPanel {
                 g.fillRect(x * size, y * size + inventory_start, size, size);
                 g.setColor(Color.yellow);
                 g.drawRect(x * size, y * size + inventory_start, size, size);
-                if(game.player.getItem(x, y) != null) {
-                    g.drawImage(game.player.getItem(x, y).getSprite().getImage(), x * size, y * size + inventory_start, size, size, null);
+                if(game.player.getInventory().getItem(x, y) != null) {
+                    g.drawImage(game.player.getInventory().getItem(x, y).getSprite().getImage(), x * size, y * size + inventory_start, size, size, null);
                 }
             }
         }

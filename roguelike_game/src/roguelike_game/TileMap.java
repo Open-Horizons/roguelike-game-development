@@ -1,25 +1,21 @@
 package roguelike_game;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Class used to make an array of tiles
  */
 
-
-import java.awt.Graphics;
-import java.awt.Image;
 import java.util.Random;
 import roguelike_game.entity.item.Item;
-import roguelike_game.graphics.Sprite;
 
 /**
  *
- * @author andyafw
+ * @author andy Walser
+ * @version 10-20-13
  */
 
 //used to draw the world map
 public class TileMap {
-    private Roguelike_game game;
+    private Game game;
     
     public int width;
     public int height;
@@ -27,7 +23,7 @@ public class TileMap {
     public int[][] tiles;
     public Item[][] items;
     
-    public TileMap(Roguelike_game game, int width, int height) {
+    public TileMap(Game game, int width, int height) {
         this.game = game;
         this.width = width;
         this.height = height;
@@ -36,8 +32,13 @@ public class TileMap {
         items = new Item[height][width];
     }
     
-    public void randomMap() {
+    public void createRandomMap() {
         Random rand = new Random(10);
+        randomTiles(rand);
+        randomItems(rand);
+    }
+    
+    public void randomTiles(Random rand) {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int r = rand.nextInt(3);
@@ -45,6 +46,9 @@ public class TileMap {
                 tiles[y][x] = r;
             }
         } 
+    }
+    
+    public void randomItems(Random rand) {
         for(int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if(tiles[y][x] != 0) {
@@ -64,36 +68,5 @@ public class TileMap {
     
     public void inputMap(String file) {
         
-    }
-    
-    public void render(Graphics g, int scrollx, int scrolly) {
-        int startx = Math.max(scrollx / size, 0);
-        int starty = Math.max(scrolly / size, 0);
-        int limitx = Math.min((scrollx + game.painting.width) / 30 + 1, width);
-        int limity = Math.min((scrolly + game.painting.height) / 30 + 1, height);
-        for(int y = starty; y < limity; y++) {
-            for(int x = startx; x < limitx; x++) {
-                g.drawImage(findImage(tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
-            }
-        }
-        for(int y = starty; y < limity; y++) {
-            for(int x = startx; x < limitx; x++) {
-                if(items[y][x] == null) {
-                    continue;
-                } else {
-                    g.drawImage(items[y][x].getSprite().getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
-                }
-            }
-        }   
-    }
-    
-    private Image findImage(int i) {
-        switch(i) {
-            case 0:
-                return Sprite.WALL.getImage();
-            default:
-                //if don't know number inputed then send floor image
-                return Sprite.FLOOR.getImage();
-        }
     }
 }

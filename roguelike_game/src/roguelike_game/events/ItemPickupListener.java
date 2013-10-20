@@ -6,7 +6,7 @@ package roguelike_game.events;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import roguelike_game.Roguelike_game;
+import roguelike_game.Game;
 import roguelike_game.entity.item.Item;
 
 /**
@@ -14,10 +14,10 @@ import roguelike_game.entity.item.Item;
  * @author andyafw
  */
 public class ItemPickupListener implements ActionListener {
-    Roguelike_game game;
+    Game game;
     private int x, y;
     
-    public ItemPickupListener(Roguelike_game game, int x, int y) {
+    public ItemPickupListener(Game game, int x, int y) {
         this.game = game;
         this.x = x;
         this.y = y;
@@ -29,13 +29,13 @@ public class ItemPickupListener implements ActionListener {
         if(mes.equals("Add to Inventory")) {
             Item i = game.tilemap.items[y][x];
             game.tilemap.items[y][x] = null;
-            game.player.addItem(i);
+            game.player.getInventory().addItem(i);
             game.inventorypane.repaint();
         }
         if(mes.equals("Equip Item")) {
             Item i = game.tilemap.items[y][x];
             game.tilemap.items[y][x] = null;
-            game.player.addEquip(i);
+            game.player.getInventory().addEquip(i);
             game.inventorypane.repaint();
         }
     }

@@ -6,10 +6,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class SpriteSheet {
+<<<<<<< HEAD
 	public static SpriteSheet CHARACTERS = new SpriteSheet("/res/sprites/character.png");
 	public static SpriteSheet SPRITES = new SpriteSheet("/res/sprites/sprites.png");
     public static SpriteSheet WEAPONS = new SpriteSheet("/res/sprites/weapons2.png");
     public static SpriteSheet WALLS = new SpriteSheet("/res/sprites/walls.png");
+=======
+    public static SpriteSheet CHARACTERS = new SpriteSheet("res/sprites/character.png");
+    public static SpriteSheet SPRITES    = new SpriteSheet("res/sprites/sprites.png");
+    public static SpriteSheet WEAPONS    = new SpriteSheet("res/sprites/weapons2.png");
+    public static SpriteSheet WALLS      = new SpriteSheet("res/sprites/walls.png");
+>>>>>>> organized all of the classes around
         
 	private BufferedImage bs;
 	

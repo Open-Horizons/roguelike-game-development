@@ -10,9 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import roguelike_game.Roguelike_game;
-import roguelike_game.entity.Player;
-import roguelike_game.graphics.Sprite;
+import roguelike_game.Game;
 
 /**
  *
@@ -39,9 +37,9 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     
     private boolean[] key = new boolean[500];
     
-    private Roguelike_game game;
+    private Game game;
     
-    public Movement(Roguelike_game game) {
+    public Movement(Game game) {
         this.game = game;
         for(int i = 0; i < key.length; i++) {
             key[i] = false;
@@ -111,8 +109,8 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     private void doPop(MouseEvent e){
         int mx = e.getX();
         int my = e.getY();
-        int scrollx = game.painting.cam.x;
-        int scrolly = game.painting.cam.y;
+        int scrollx = game.cam.x;
+        int scrolly = game.cam.y;
         //int tilex = (mx - scrollx) / game.tilemap.size;
         //int tiley = (my - scrolly) / game.tilemap.size - 1;
         int tilex = game.player.getX();

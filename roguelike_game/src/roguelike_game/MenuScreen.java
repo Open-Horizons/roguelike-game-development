@@ -13,10 +13,10 @@ import java.awt.Graphics;
  * @author andyafw
  */
 public class MenuScreen {
-    private Roguelike_game game;
+    private Game game;
     public boolean menuon = false;
     
-    public MenuScreen(Roguelike_game game) {
+    public MenuScreen(Game game) {
         this.game = game;
     }
     
@@ -37,21 +37,21 @@ public class MenuScreen {
         int sizex = 300;
         int sizey = 30;
         g.setColor(Color.red);
-        if(game.painting.move.MENU_SELECTION == 1) {
+        if(game.move.MENU_SELECTION == 1) {
             g.setColor(Color.green);
             g.drawRect(290, 300, sizex, sizey);
         }
         g.drawString("Start Game", 310, 320);
         
         g.setColor(Color.red);
-        if(game.painting.move.MENU_SELECTION == 2) {
+        if(game.move.MENU_SELECTION == 2) {
             g.setColor(Color.green);
             g.drawRect(290, 360, sizex, sizey);
         }
         g.drawString("Game Options", 310, 380);
         
         g.setColor(Color.red);
-        if(game.painting.move.MENU_SELECTION == 3) {
+        if(game.move.MENU_SELECTION == 3) {
             g.setColor(Color.green);
             g.drawRect(290, 420, sizex, sizey);
         }

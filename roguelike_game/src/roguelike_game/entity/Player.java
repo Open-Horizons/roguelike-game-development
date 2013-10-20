@@ -4,11 +4,8 @@
  */
 package roguelike_game.entity;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-import roguelike_game.TileMap;
-import roguelike_game.entity.item.Item;
 import roguelike_game.graphics.Sprite;
+import roguelike_game.transport.Inventory;
 
 /**
  *
@@ -17,21 +14,14 @@ import roguelike_game.graphics.Sprite;
 public class Player {
     private int x;
     private int y;
-    private int size;
     private Sprite sprite;
-    private TileMap map;
+    private Inventory inventory;
     
-    protected int items_can_wear = 10;		//helmet, hands, chest armor, belt, ring, pants, left-hand sword, amulet, boots, and right-hand sword
-    protected int items_can_hold = 49;
-    protected ArrayList<Item> equippedItems = new ArrayList<Item>(items_can_wear);
-    protected ArrayList<Item> inventory = new ArrayList<Item>(items_can_hold);
-    
-    public Player(int x, int y, int size, Sprite sprite, TileMap map) {
+    public Player(int x, int y, Sprite sprite) {
         this.x = x;
         this.y = y;
-        this.size = size;
         this.sprite = sprite;
-        this.map = map;
+        inventory = new Inventory(7, 7);
     }
 
     public int getX() {
@@ -50,62 +40,15 @@ public class Player {
         this.y = y;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public Sprite getSprite() {
         return sprite;
     }
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
-    }
+    } 
     
-    public void render(Graphics g, int scrollx, int scrolly) {
-        g.drawImage(sprite.getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
+    public Inventory getInventory() {
+        return inventory;
     }
-    
-    public void addItem(Item item) {
-        if(inventory.size() != items_can_hold) {
-            inventory.add(item);
-        } else {
-            //TODO: need to figure out a way to tell user inventory is full
-        }
-    }
-    
-    public Item getItem(int x, int y) {
-        int pos = y * 7 + x;
-        if(inventory.size() > pos) {
-            if(inventory.get(pos) != null) {
-                return inventory.get(pos);
-            } else {
-                //no item to return;
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-    
-    public void addEquip(Item item) {
-        if(equippedItems.size() <= items_can_wear) {
-            equippedItems.add(item);
-        } else {
-            //can not add item
-        }
-    }
-    
-    public Item getEquip(int i) {
-        if(i < equippedItems.size()) {
-            return equippedItems.get(i);
-        } else {
-            return null;
-        }
-    }
-    
 }

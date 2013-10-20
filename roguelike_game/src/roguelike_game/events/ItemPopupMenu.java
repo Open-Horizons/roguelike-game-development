@@ -7,7 +7,7 @@ package roguelike_game.events;
 import java.awt.Color;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import roguelike_game.Roguelike_game;
+import roguelike_game.Game;
 import roguelike_game.entity.item.Item;
 
 /**
@@ -15,7 +15,7 @@ import roguelike_game.entity.item.Item;
  * @author andyafw
  */
 public class ItemPopupMenu extends JPopupMenu {
-    public ItemPopupMenu(Roguelike_game game, int x, int y) {
+    public ItemPopupMenu(Game game, int x, int y) {
         Color foreground = Color.green;
         Color background = Color.black;
         
