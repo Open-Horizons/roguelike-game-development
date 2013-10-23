@@ -19,6 +19,8 @@ public class Render extends JPanel {
     public int size = 32;
     public int width = 100;
     public int height = 100;
+    public int res_width = 1100;
+    public int res_height = 600;
     
     private Game game;
     
@@ -40,8 +42,8 @@ public class Render extends JPanel {
     public void render(Graphics g, int scrollx, int scrolly) {
         int startx = Math.max(scrollx / size, 0);
         int starty = Math.max(scrolly / size, 0);
-        int limitx = Math.min((scrollx + width) / 30 + 1, width);
-        int limity = Math.min((scrolly + height) / 30 + 1, height);
+        int limitx = Math.min((scrollx + res_width) / 30 + 1, width);
+        int limity = Math.min((scrolly + res_height) / 30 + 1, height);
         drawBackground(g);
         draw2dTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
         drawItems(g, startx, starty, limitx, limity, scrollx, scrolly);
@@ -98,6 +100,7 @@ public class Render extends JPanel {
         for(int y = starty; y < limity; y++) {
             for(int x = startx; x < limitx; x++) {
                     g.drawImage(findImage(game.tilemap.tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
+                    System.out.println(scrollx + ", " + scrolly + ", " + size);
             }
         }
     }

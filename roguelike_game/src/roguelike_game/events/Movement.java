@@ -107,12 +107,6 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     }
 
     private void doPop(MouseEvent e){
-        int mx = e.getX();
-        int my = e.getY();
-        int scrollx = game.cam.x;
-        int scrolly = game.cam.y;
-        //int tilex = (mx - scrollx) / game.tilemap.size;
-        //int tiley = (my - scrolly) / game.tilemap.size - 1;
         int tilex = game.player.getX();
         int tiley = game.player.getY();
         if(tilex < game.tilemap.width && tilex >= 0 && tiley < game.tilemap.height && tiley >= 0) {

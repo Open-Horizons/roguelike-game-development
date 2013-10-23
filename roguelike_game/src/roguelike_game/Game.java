@@ -55,6 +55,7 @@ public class Game extends JFrame implements Runnable {
             player.setSprite(sprite);
             player.setX(player.getX() + x);
             player.setY(player.getY() + y);
+            System.out.println("render " + render.size);
             cam.x += render.size * x;
             cam.y += render.size * y;
             
@@ -134,7 +135,7 @@ public class Game extends JFrame implements Runnable {
                 repaint();
                 long frameStop = System.nanoTime();
                 long time = frameStop - frameStart;                
-                System.out.println(time);
+                //System.out.println(time);
                 
                 // update();
                 
