@@ -20,7 +20,7 @@ public class Game extends JFrame implements Runnable {
     public int FPS = 100;
     public int counter = 0;
     public boolean running = false;
-    public String version = "Rogue Game - Pre-Alpha build v0.0.1";
+    public String version = "Rogue Game - Pre-Alpha build v13.10.22";
     
     public Game() {
         tilemap = new TileMap(this, 100, 100);

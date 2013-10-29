@@ -45,9 +45,15 @@ public class Render extends JPanel {
         int limitx = Math.min((scrollx + res_width) / 30 + 1, width);
         int limity = Math.min((scrolly + res_height) / 30 + 1, height);
         drawBackground(g);
-        draw2dTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
+        drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
         drawItems(g, startx, starty, limitx, limity, scrollx, scrolly);
         drawPlayer(g, scrollx, scrolly);
+    }
+    
+    public Point isoFormula(int x, int y) {
+        int xx = ((y - x) * 16) + 400;
+        int yy = ((y + x) * 16) + 20;
+        return new Point(xx, yy);
     }
     
     public void drawBackground(Graphics g) {
@@ -59,43 +65,20 @@ public class Render extends JPanel {
     }
     
     public void drawPlayer(Graphics g, int scrollx, int scrolly) {
-        g.drawImage(game.player.getSprite().getImage(), game.player.getX() * size - scrollx, game.player.getY() * size - scrolly, size, size, null);
+        Point p = isoFormula(game.player.getX(), game.player.getY());
+        g.drawImage(game.player.getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
     }
     
     public void drawIsoTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
         for(int y = starty; y < limity; y++) {
             for(int x = startx; x < limitx; x++) {
-                if (x % 2 == 0) {
-                    g.drawImage(findImage(game.tilemap.tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
-                }
-                else {
-                    g.drawImage(findImage(game.tilemap.tiles[y][x]), x * size - scrollx/2, y * size - scrolly, size, size, null);
-                }
+                Point p = isoFormula(x, y);
+                g.drawImage(findImage(game.tilemap.tiles[y][x]), p.x - scrollx, p.y - scrolly, size, size, null);
+
             }
         }
     }
     
-    public void drawIsoTilemap2(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
-        for(int y = starty; y < limity; y++) {
-            for(int x = startx; x < limitx; x++) {
-                double halfwidth = 0.5;
-                /**
-                 * isoX = y/2 + x/2
-                 * isoY = y/2 - x/2
-                 **/
-                Point tempPt = new Point(0, 0);
-                if (x % 2 == 0) {
-                    tempPt.x = (y * size) + (x * size / 2);    
-                    tempPt.y = (y * size) - (x * size / 2);  
-                }
-                else {
-                    tempPt.x = (y * size / 2) + (x * size);    
-                    tempPt.y = (y * size / 2) - (x * size); 
-                }
-                g.drawImage(findImage(game.tilemap.tiles[y][x]), tempPt.x - scrollx, tempPt.y - scrolly, size, size, null);
-            }
-        }
-    }
     public void draw2dTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
         for(int y = starty; y < limity; y++) {
             for(int x = startx; x < limitx; x++) {
@@ -111,7 +94,8 @@ public class Render extends JPanel {
                 if(game.tilemap.items[y][x] == null) {
                     continue;
                 } else {
-                    g.drawImage(game.tilemap.items[y][x].getSprite().getImage(), x * size - scrollx, y * size - scrolly, size, size, null);
+                    Point p = isoFormula(x, y);
+                    g.drawImage(game.tilemap.items[y][x].getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
                 }
             }
         }          
@@ -120,10 +104,10 @@ public class Render extends JPanel {
     private Image findImage(int i) {
         switch(i) {
             case 0:
-                return Sprite.WALL.getImage();
+                return Sprite.ISOWALL.getImage();
             default:
                 //if don't know number inputed then send floor image
-                return Sprite.FLOOR.getImage();
+                return Sprite.ISOFLOOR.getImage();
         }
     }
 }
