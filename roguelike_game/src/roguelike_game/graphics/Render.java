@@ -45,14 +45,23 @@ public class Render extends JPanel {
         int limitx = Math.min((scrollx + res_width) / 30 + 1, width);
         int limity = Math.min((scrolly + res_height) / 30 + 1, height);
         drawBackground(g);
-        drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
-        drawItems(g, startx, starty, limitx, limity, scrollx, scrolly);
-        drawPlayer(g, scrollx, scrolly);
+        draw2DTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
+        draw2DItems(g, startx, starty, limitx, limity, scrollx, scrolly);
+        draw2DPlayer(g, scrollx, scrolly);
+        //drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
+        //drawIsoItems(g, startx, starty, limitx, limity, scrollx, scrolly);
+        //drawIsoPlayer(g, scrollx, scrolly);
     }
     
     public Point isoFormula(int x, int y) {
         int xx = ((y - x) * 16) + 400;
         int yy = ((y + x) * 16) + 20;
+        return new Point(xx, yy);
+    }
+    
+    public Point twoFormula(int x, int y) {
+        int xx = x * size;
+        int yy = y * size;
         return new Point(xx, yy);
     }
     
@@ -64,7 +73,7 @@ public class Render extends JPanel {
         }
     }
     
-    public void drawPlayer(Graphics g, int scrollx, int scrolly) {
+    public void drawIsoPlayer(Graphics g, int scrollx, int scrolly) {
         Point p = isoFormula(game.player.getX(), game.player.getY());
         g.drawImage(game.player.getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
     }
@@ -73,22 +82,13 @@ public class Render extends JPanel {
         for(int y = starty; y < limity; y++) {
             for(int x = startx; x < limitx; x++) {
                 Point p = isoFormula(x, y);
-                g.drawImage(findImage(game.tilemap.tiles[y][x]), p.x - scrollx, p.y - scrolly, size, size, null);
+                g.drawImage(findIsoImage(game.tilemap.tiles[y][x]), p.x - scrollx, p.y - scrolly, size, size, null);
 
             }
         }
-    }
+    }    
     
-    public void draw2dTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
-        for(int y = starty; y < limity; y++) {
-            for(int x = startx; x < limitx; x++) {
-                    g.drawImage(findImage(game.tilemap.tiles[y][x]), x * size - scrollx, y * size - scrolly, size, size, null);
-                    System.out.println(scrollx + ", " + scrolly + ", " + size);
-            }
-        }
-    }
-    
-    public void drawItems(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
+    public void drawIsoItems(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
         for(int y = starty; y < limity; y++) {
             for(int x = startx; x < limitx; x++) {
                 if(game.tilemap.items[y][x] == null) {
@@ -101,13 +101,51 @@ public class Render extends JPanel {
         }          
     }
     
-    private Image findImage(int i) {
+    public void draw2DPlayer(Graphics g, int scrollx, int scrolly) {
+        Point p = twoFormula(game.player.getX(), game.player.getY());
+        g.drawImage(game.player.getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
+    }
+    
+    public void draw2DTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
+        for(int y = starty; y < limity; y++) {
+            for(int x = startx; x < limitx; x++) {
+                Point p = twoFormula(x, y);
+                g.drawImage(find2DImage(game.tilemap.tiles[y][x]), p.x - scrollx, p.y - scrolly, size, size, null);
+
+            }
+        }
+    }
+    
+    public void draw2DItems(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
+        for(int y = starty; y < limity; y++) {
+            for(int x = startx; x < limitx; x++) {
+                if(game.tilemap.items[y][x] == null) {
+                    continue;
+                } else {
+                    Point p = twoFormula(x, y);
+                    g.drawImage(game.tilemap.items[y][x].getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
+                }
+            }
+        }          
+    }
+    
+    private Image findIsoImage(int i) {
         switch(i) {
             case 0:
                 return Sprite.ISOWALL.getImage();
             default:
                 //if don't know number inputed then send floor image
                 return Sprite.ISOFLOOR.getImage();
+        }
+    }
+    
+    private Image find2DImage(int i) {
+        switch(i) {
+            case 0:
+                return Sprite.WALL.getImage();
+            default:
+                //if don't know number inputed then send floor image
+                return Sprite.FLOOR.getImage();
         }
     }
 }
