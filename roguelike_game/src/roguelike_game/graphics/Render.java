@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Point;
 import javax.swing.JPanel;
 import roguelike_game.Game;
+import roguelike_game.entity.Enemy;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Render extends JPanel {
         drawBackground(g);
         draw2DTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
         draw2DItems(g, startx, starty, limitx, limity, scrollx, scrolly);
+        draw2DEnemies(g, scrollx, scrolly);
         draw2DPlayer(g, scrollx, scrolly);
         //drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
         //drawIsoItems(g, startx, starty, limitx, limity, scrollx, scrolly);
@@ -104,6 +106,14 @@ public class Render extends JPanel {
     public void draw2DPlayer(Graphics g, int scrollx, int scrolly) {
         Point p = twoFormula(game.player.getX(), game.player.getY());
         g.drawImage(game.player.getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
+    }
+    
+    public void draw2DEnemies(Graphics g, int scrollx, int scrolly) {
+        for(Enemy enemy : game.enemyList) {
+            Point p = twoFormula(enemy.getX(), enemy.getY());
+            g.drawImage(Sprite.UNICON.getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
+            
+        }
     }
     
     public void draw2DTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
