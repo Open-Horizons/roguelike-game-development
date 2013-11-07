@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.lang.Math;
 import javax.swing.JPanel;
 import roguelike_game.Game;
 import roguelike_game.entity.Enemy;
@@ -46,13 +47,15 @@ public class Render extends JPanel {
         int limitx = Math.min((scrollx + res_width) / 30 + 1, width);
         int limity = Math.min((scrolly + res_height) / 30 + 1, height);
         drawBackground(g);
+        /*
         draw2DTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
         draw2DItems(g, startx, starty, limitx, limity, scrollx, scrolly);
         draw2DEnemies(g, scrollx, scrolly);
         draw2DPlayer(g, scrollx, scrolly);
-        //drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
-        //drawIsoItems(g, startx, starty, limitx, limity, scrollx, scrolly);
-        //drawIsoPlayer(g, scrollx, scrolly);
+        */
+        drawIsoTilemap(g, startx, starty, limitx, limity, scrollx, scrolly);
+        drawIsoItems(g, startx, starty, limitx, limity, scrollx, scrolly);
+        drawIsoPlayer(g, scrollx, scrolly);
     }
     
     public Point isoFormula(int x, int y) {
@@ -74,21 +77,25 @@ public class Render extends JPanel {
             }
         }
     }
+
+    public void drawIsoTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {     
+    	for (int y = starty; y < limity; y++) {
+    		for (int x = startx; x < limitx; x++) {
+    			int isoX = (int)((x - y)* 32 * 0.5);
+    			int isoY = (int)((x + y) * 32 * 0.25);
+    			g.drawImage(findIsoImage(game.tilemap.tiles[y][x]), isoX - scrollx, isoY - scrolly, size, size, null);
+    		}
+    	}
+    } 
     
     public void drawIsoPlayer(Graphics g, int scrollx, int scrolly) {
-        Point p = isoFormula(game.player.getX(), game.player.getY());
-        g.drawImage(game.player.getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
-    }
-    
-    public void drawIsoTilemap(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
-        for(int y = starty; y < limity; y++) {
-            for(int x = startx; x < limitx; x++) {
-                Point p = isoFormula(x, y);
-                g.drawImage(findIsoImage(game.tilemap.tiles[y][x]), p.x - scrollx, p.y - scrolly, size, size, null);
-
-            }
-        }
-    }    
+    	int x = game.player.getX();
+    	int y = game.player.getY();
+    	int isoX = (int)((x - y)* 32 * 0.5);
+		int isoY = (int)((x + y) * 32 * 0.25);
+        //Point p = isoFormula(game.player.getX(), game.player.getY());
+        g.drawImage(game.player.getSprite().getImage(), isoX + scrollx, isoY - scrolly, size, size, null);
+    }  
     
     public void drawIsoItems(Graphics g, int startx, int starty, int limitx, int limity, int scrollx, int scrolly) {
         for(int y = starty; y < limity; y++) {
@@ -96,8 +103,10 @@ public class Render extends JPanel {
                 if(game.tilemap.items[y][x] == null) {
                     continue;
                 } else {
-                    Point p = isoFormula(x, y);
-                    g.drawImage(game.tilemap.items[y][x].getSprite().getImage(), p.x - scrollx, p.y - scrolly, size, size, null);
+                	int isoX = (int)((x - y)* 32 * 0.5);
+        			int isoY = (int)((x + y) * 32 * 0.25);
+                    //Point p = isoFormula(x, y);
+                    g.drawImage(game.tilemap.items[y][x].getSprite().getImage(), isoX - scrollx, isoY - scrolly, size, size, null);
                 }
             }
         }          
