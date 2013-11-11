@@ -24,6 +24,7 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     
     public boolean OPEN_DEV = false;
     public boolean RIGHTCLICK = false;
+    public boolean ISOVIEW = false;
     
     private boolean prevUP = false;
     private boolean prevDOWN = false;
@@ -73,11 +74,14 @@ public class Movement implements KeyListener, MouseListener, MouseMotionListener
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() < key.length) {
-        key[ke.getKeyCode()] = true;
+            key[ke.getKeyCode()] = true;
 
             if (ke.getKeyCode() == KeyEvent.VK_BACK_QUOTE ) {// && ke.getModifiersEx() == KeyEvent.SHIFT_DOWN_MASK) {
                 System.out.println("tilda " + OPEN_DEV);
                 OPEN_DEV = !OPEN_DEV;
+            }
+            if(ke.getKeyCode() == KeyEvent.VK_V) {
+                ISOVIEW = !ISOVIEW;
             }
         }
     }

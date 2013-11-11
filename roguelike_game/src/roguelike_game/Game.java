@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import roguelike_game.developer.DeveloperConsole;
 import roguelike_game.entity.Enemy;
+import roguelike_game.entity.Mob;
 import roguelike_game.entity.Player;
 import roguelike_game.events.Movement;
 import roguelike_game.graphics.Render;
@@ -22,7 +23,6 @@ public class Game extends JFrame implements Runnable {
     public InventoryPanel inventorypane;
     public MenuScreen mainmenu;
     public Random rand = new Random();
-    
     public int FPS = 100;
     public int counter = 0;
     public int maxEnemies = 100;
@@ -34,7 +34,7 @@ public class Game extends JFrame implements Runnable {
         tilemap.createRandomMap();
         move = new Movement(this);
         cam = new Camera();
-        render = new Render(this);
+        render = new Render(this, true);
         player = new Player(13, 9, Sprite.PLAYER_UP);
         initEnemies();
         inventorypane = new InventoryPanel(this);
@@ -46,16 +46,16 @@ public class Game extends JFrame implements Runnable {
         add(render, BorderLayout.CENTER);
         add(inventorypane, BorderLayout.EAST);
     }
-    
+
     public void initEnemies() {
         enemyList = new ArrayList<Enemy>(maxEnemies);
-        for(int i = 0; i < maxEnemies; i++) {
+        for (int i = 0; i < maxEnemies; i++) {
             int x;
             int y;
-            while(true) {
+            while (true) {
                 x = rand.nextInt(tilemap.width);
                 y = rand.nextInt(tilemap.height);
-                if(tilemap.tiles[y][x] > 0) {
+                if (tilemap.tiles[y][x] > 0) {
                     break;
                 }
             }
@@ -64,12 +64,12 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    public boolean collision(int x, int y) {
-        if ((player.getX() + x) < 0 || (player.getX() + x) >= tilemap.width || (player.getY() + y) < 0 || (player.getY() + y) >= tilemap.height) {
+    public boolean collision(int x, int y, Mob mob) {
+        if ((mob.getX() + x) < 0 || (mob.getX() + x) >= tilemap.width || (mob.getY() + y) < 0 || (mob.getY() + y) >= tilemap.height) {
             return true;
         }
 
-        if (tilemap.tiles[player.getY() + y][player.getX() + x] == 0) {
+        if (tilemap.tiles[mob.getY() + y][mob.getX() + x] == 0) {
             return true;
         } else {
             return false;
@@ -90,7 +90,7 @@ public class Game extends JFrame implements Runnable {
     @Override
     public void run() {
         int FPSrate = 1000 / FPS;
-
+        long time = 0;
         boolean[] wait = {false, false, false, false};
 
         System.out.println("Before Loop");
@@ -99,6 +99,8 @@ public class Game extends JFrame implements Runnable {
             setTitle(version);
             counter++;
             move.update();
+
+            render.iso_view = move.ISOVIEW;
 
             if (move.OPEN_DEV) {
                 DeveloperConsole.getInstance().setVisible(true);
@@ -131,22 +133,22 @@ public class Game extends JFrame implements Runnable {
                     int speed = 1;
                     switch (i) {
                         case 0:
-                            if (!collision(0, -speed)) {
+                            if (!collision(0, -speed, player)) {
                                 updatePlayer(Sprite.PLAYER_UP, 0, -speed);
                             }
                             break;
                         case 1:
-                            if (!collision(0, speed)) {
+                            if (!collision(0, speed, player)) {
                                 updatePlayer(Sprite.PLAYER_DOWN, 0, speed);
                             }
                             break;
                         case 2:
-                            if (!collision(-speed, 0)) {
+                            if (!collision(-speed, 0, player)) {
                                 updatePlayer(Sprite.PLAYER_LEFT, -speed, 0);
                             }
                             break;
                         case 3:
-                            if (!collision(speed, 0)) {
+                            if (!collision(speed, 0, player)) {
                                 updatePlayer(Sprite.PLAYER_RIGHT, speed, 0);
                             }
                             break;
@@ -155,14 +157,17 @@ public class Game extends JFrame implements Runnable {
                 }
             }
 
-            // nanoTime() to measure refresh rate
-            long frameStart = System.nanoTime();
-            repaint();
-            long frameStop = System.nanoTime();
-            long time = frameStop - frameStart;
-            //System.out.println(time);
 
-            // update();
+            repaint();
+            
+            time += 1;
+            if(time == 20) {
+            for (Enemy enemies : enemyList) {
+                enemies.update(this);
+            }
+            time = 0;
+            }
+            
 
             try {
                 Thread.sleep(FPSrate);

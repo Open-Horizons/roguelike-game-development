@@ -9,6 +9,8 @@ public class Sprite {
     public static Sprite PLAYER_DOWN  = new Sprite(64, 0, 3, SpriteSheet.CHARACTERS);
     public static Sprite PLAYER_RIGHT = new Sprite(64, 0, 4, SpriteSheet.CHARACTERS);
     
+    public static Sprite ALIEN_ENEMY = new Sprite(64, 0, 6, SpriteSheet.CHARACTERS);
+    
     public static Sprite EMPTY     = new Sprite(64, 0, 0, SpriteSheet.CHARACTERS);
     
     public static Sprite WALL      = new Sprite(64, 1, 0, SpriteSheet.CHARACTERS);
