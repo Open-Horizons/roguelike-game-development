@@ -19,7 +19,6 @@ public class Game extends JFrame implements Runnable {
     public Movement move;
     public Camera cam;
     public Render render;
-    public InventoryPanel inventorypane;
     public MenuScreen mainmenu;
     public Random rand = new Random();
     
@@ -37,14 +36,12 @@ public class Game extends JFrame implements Runnable {
         render = new Render(this);
         player = new Player(13, 9, Sprite.PLAYER_UP);
         initEnemies();
-        inventorypane = new InventoryPanel(this);
         mainmenu = new MenuScreen(this);
         addKeyListener(move);
         addMouseListener(move);
         addMouseMotionListener(move);
 
         add(render, BorderLayout.CENTER);
-        add(inventorypane, BorderLayout.EAST);
     }
     
     public void initEnemies() {
