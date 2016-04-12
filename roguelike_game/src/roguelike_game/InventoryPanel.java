@@ -15,27 +15,28 @@ import javax.swing.JPanel;
  * @author andyafw
  */
 public class InventoryPanel extends JPanel {
-    private Game game;
-    public int inventory_width = 7;
-    public int inventory_height = 7;
+	private static final long serialVersionUID = 2819259544532313748L;
+	private Game game;
+    public int width = 7;
+    public int height = 7;
     public int size = 32;
     public int inventory_start = 352;
     public int armor_start = 220;
     
-    public Point[] inventory_pos;
+    public Point[] postions;
     
     public InventoryPanel(Game game) {
-        this.inventory_pos = new Point[10];
-        inventory_pos[0] = new Point(3, 0); //helmet
-        inventory_pos[1] = new Point(2, 1); //hands
-        inventory_pos[2] = new Point(3, 1); //chest armor
-        inventory_pos[3] = new Point(4, 1); //belt
-        inventory_pos[4] = new Point(1, 2); //ring
-        inventory_pos[5] = new Point(3, 2); //pants
-        inventory_pos[6] = new Point(5, 2); //left hand sword
-        inventory_pos[7] = new Point(1, 3); //amulet
-        inventory_pos[8] = new Point(3, 3); //boots
-        inventory_pos[9] = new Point(5, 3); //right hand sword
+        this.postions = new Point[10];
+        postions[0] = new Point(3, 0); //helmet
+        postions[1] = new Point(2, 1); //hands
+        postions[2] = new Point(3, 1); //chest armor
+        postions[3] = new Point(4, 1); //belt
+        postions[4] = new Point(1, 2); //ring
+        postions[5] = new Point(3, 2); //pants
+        postions[6] = new Point(5, 2); //left hand sword
+        postions[7] = new Point(1, 3); //amulet
+        postions[8] = new Point(3, 3); //boots
+        postions[9] = new Point(5, 3); //right hand sword
         this.game = game;
         setPreferredSize(new Dimension(226, 600));
     }
@@ -54,10 +55,10 @@ public class InventoryPanel extends JPanel {
         
         //create armor inventory 
         int next = 0;
-        for(int y = 0; y < inventory_height; y++) {
-            for (int x = 0; x < inventory_width; x++) {
+        for(int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 if(next < 10) {
-                    if(inventory_pos[next].x == x && inventory_pos[next].y == y) {
+                    if(postions[next].x == x && postions[next].y == y) {
                         g.setColor(Color.black);
                         g.fillRect(x * size, y * size + armor_start, size, size);
                         g.setColor(Color.green);
@@ -72,8 +73,8 @@ public class InventoryPanel extends JPanel {
         }
         
         //create player inventory
-        for(int y = 0; y < inventory_height; y++) {
-            for (int x = 0; x < inventory_width; x++) {
+        for(int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 g.setColor(Color.black);
                 g.fillRect(x * size, y * size + inventory_start, size, size);
                 g.setColor(Color.yellow);

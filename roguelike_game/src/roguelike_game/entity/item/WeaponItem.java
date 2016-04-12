@@ -11,9 +11,6 @@ import roguelike_game.graphics.Sprite;
  * @author andyafw
  */
 public class WeaponItem extends Item {
-    
-    public static WeaponItem SWORD = new WeaponItem(Sprite.SWORD, 10, 100);
-    
     protected int damage = 0;
     protected int health = 0;
     

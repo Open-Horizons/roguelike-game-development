@@ -13,9 +13,8 @@ import roguelike_game.graphics.Sprite;
  */
 public class Item {
     public static WeaponItem SWORD = new WeaponItem(Sprite.SWORD, 0, 100);
-    public static Item WAND = new Item(Item.Type.ITEM, Sprite.WAND);
     
-    public static Item weapon2 = new Item(Item.Type.WEAPON, Sprite.WEAPON);
+    public static Item WAND = new Item(Item.Type.ITEM, Sprite.WAND);
     
     protected int x, y;
     protected Sprite sprite;
