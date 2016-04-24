@@ -71,42 +71,23 @@ public class Game extends JFrame implements Runnable {
         
     @Override
     public void run() {
-        int FPSrate = 1000/FPS;
         
         boolean[] wait = {false, false, false, false};
         
         System.out.println("Before Loop");
         
         while (running) {
+        	FPScounter.StartCounter();
             setTitle(version);
-            counter++;
             move.update();
 
             if(move.OPEN_DEV) {
                 DeveloperConsole.getInstance().setVisible(true);
                 move.OPEN_DEV = false;
             }
-            
-            // nanoTime() to measure refresh rate
-            long frameStart = System.nanoTime();
             repaint();
-            long frameStop = System.nanoTime();
-            long time = frameStop - frameStart;
-            
             update(wait);
-            
-            try {
-                Thread.sleep(FPSrate);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted thread!");
-            }
-            
-            // FPS Counter, prints amount of frames displayed every second
-            if ((counter % FPS) == 0){
-                System.out.println("Frames: " + counter);
-                version = "Rogue Game - Pre-Alpha build v0.0.1 - frames - " + counter;
-                counter = 0;
-            }
+            FPScounter.StopAndPost();
         }
     }
     
