@@ -21,37 +21,29 @@ public class InventoryPanel extends JPanel {
     public int height = 7;
     public int size = 32;
     public int inventory_start = 352;
-    public int armor_start = 220;
+    public int armor_start = 140;
     
-    public Point[] postions;
+    public Point[] postions = {new Point(3, 1),   /*helmet       0*/ new Point(2, 2),   /*left sword   1*/
+    						   new Point(3, 2),   /*chest armor  2*/ new Point(4, 2),   /*right sword  3*/
+    						   new Point(3, 3),   /*pants        4*/ new Point(1, 4),   /*amulet       5*/
+    						   new Point(3, 4),   /*boots        6*/ new Point(5, 4),   /*gloves       7*/
+    						   new Point(1, 5),   /*ring         8*/ new Point(5, 5)};  /*belt         9*/
+    						   
     
     public InventoryPanel(Game game) {
-        this.postions = new Point[10];
-        postions[0] = new Point(3, 0); //helmet
-        postions[1] = new Point(2, 1); //hands
-        postions[2] = new Point(3, 1); //chest armor
-        postions[3] = new Point(4, 1); //belt
-        postions[4] = new Point(1, 2); //ring
-        postions[5] = new Point(3, 2); //pants
-        postions[6] = new Point(5, 2); //left hand sword
-        postions[7] = new Point(1, 3); //amulet
-        postions[8] = new Point(3, 3); //boots
-        postions[9] = new Point(5, 3); //right hand sword
         this.game = game;
         setPreferredSize(new Dimension(226, 600));
     }
     
-    @Override
+    @Override 
     public void paintComponent(Graphics g) {
-        //clear sceen
+        //clear screen
         super.paintComponent(g);
         g.setColor(Color.black);
         g.fillRect(0, 0, 226, 600);
         
-        //create map
-        int msize = 200;
         g.setColor(Color.red);
-        g.fillArc(10, 10, msize, msize, 0, 360);
+        g.fillArc(0, 0, 226, 140, 0, 360);
         
         //create armor inventory 
         int next = 0;
@@ -64,7 +56,7 @@ public class InventoryPanel extends JPanel {
                         g.setColor(Color.green);
                         g.drawRect(x * size, y * size + armor_start, size, size);
                         if(game.player.getInventory().getEquip(next) != null) {
-                            g.drawImage(game.player.getInventory().getEquip(next).getSprite().getImage(), x * size, y * size + armor_start, size, size, null);
+                        	g.drawImage(game.player.getInventory().getEquip(next).getSprite().getImage(), x * size, y * size + armor_start, size, size, null);
                         }
                         next++;
                     }
