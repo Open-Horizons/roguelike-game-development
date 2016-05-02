@@ -14,8 +14,8 @@ public class WeaponItem extends Item {
     protected int damage = 0;
     protected int health = 0;
     
-    public WeaponItem(Sprite sprite, int damage, int health) {
-        super(Item.Type.WEAPON, sprite);
+    public WeaponItem(Type type, Sprite sprite, int damage, int health) {
+        super(type, sprite);
         this.damage = damage;
         this.health = health;
     }

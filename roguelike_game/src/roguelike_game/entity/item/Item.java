@@ -12,13 +12,13 @@ import roguelike_game.graphics.Sprite;
  * @author andyafw
  */
 public class Item {
-    public static WeaponItem SWORD = new WeaponItem(Sprite.SWORD, 0, 100);
+    public static WeaponItem SWORD = new WeaponItem(Item.Type.SWORD, Sprite.SWORD, 0, 100);
     
     public static Item WAND = new Item(Item.Type.ITEM, Sprite.WAND);
     
     protected int x, y;
     protected Sprite sprite;
-    public enum Type {ITEM, WEAPON};
+    public static enum Type {ITEM, HELMET, SWORD, GLOVES, CHEST, BELT, PANTS, BOOTS, AMULET, RING};
     
     protected Type type;
     
