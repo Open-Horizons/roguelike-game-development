@@ -2,11 +2,11 @@ package roguelike_game.entity.item;
 
 import roguelike_game.graphics.Sprite;
 
-public class ArmorItem extends Item {
+public class HelmetItem extends Item {
     protected int health = 0;
     
-    public ArmorItem(Sprite sprite, int health) {
-        super(Item.Type.WEAPON, sprite);
+    public HelmetItem(Sprite sprite, int health) {
+        super(Item.Type.HELMET, sprite);
         this.health = health;
     }
     
