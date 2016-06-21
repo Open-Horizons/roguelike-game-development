@@ -15,13 +15,12 @@ public class Game extends JFrame implements Runnable {
     public Movement move;
     public Camera cam;
     public Render render;
-    public InventoryPanel inventorypane;
     public MenuScreen mainmenu;
     
     public int FPS = 100;
     public int counter = 0;
     public boolean running = false;
-    public String version = "Rogue Game - Pre-Alpha build v16.04.12";
+    public String version = "Rogue Game - Pre-Alpha build v16.06.21 - 10.51";
     
 	public Game() {
 	    tilemap = new TileMap(100, 100);
@@ -31,14 +30,12 @@ public class Game extends JFrame implements Runnable {
 	    render = new Render(this);
 	    player = new Player(13, 9, Sprite.PLAYER_UP);
 	    
-	    inventorypane = new InventoryPanel(this);
 	    mainmenu = new MenuScreen(this);
 	    addKeyListener(move);
 	    addMouseListener(move);
 	    addMouseMotionListener(move);
 	    
 	    add(render, BorderLayout.CENTER);
-	    add(inventorypane, BorderLayout.EAST);
 	}
 	
 	//if no collision then return true

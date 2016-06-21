@@ -31,14 +31,14 @@ public class ItemPickupListener implements ActionListener {
             if(game.player.getInventory().addItem(i)) {
             	game.tilemap.items[y][x] = null;
             }
-            game.inventorypane.repaint();
+            game.render.repaint();;
         }
         if(mes.equals("Equip Item")) {
             Item i = game.tilemap.items[y][x];
             if(game.player.getInventory().addEquip(i)) {
             	game.tilemap.items[y][x] = null;
             }
-            game.inventorypane.repaint();
+            game.render.repaint();
         }
     }
 }
