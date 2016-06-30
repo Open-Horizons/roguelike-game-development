@@ -17,14 +17,21 @@ public class Inventory {
     protected int inv_width = 7;
     protected int inv_height = 7;
     
-    protected ArrayList<Item> equippedItems = new ArrayList<Item>(items_can_wear);
+    protected ArrayList<Item> equippedItems;
     protected ArrayList<Item> inventoryItems;
     
     public Inventory(int width, int height) {
         inv_width = width;
         inv_height = height;
         items_can_hold = inv_width * inv_height;
+        equippedItems = new ArrayList<Item>(items_can_wear);
+        for(int i = 0; i < items_can_wear; i++) {
+        	equippedItems.add(Item.SWORD);
+        }
         inventoryItems = new ArrayList<Item>(items_can_hold);
+        for(int i = 0; i < items_can_hold; i++) {
+        	inventoryItems.add(Item.WAND);
+        }
     }
     
     public int getInventoryWidth() {
@@ -38,34 +45,33 @@ public class Inventory {
     public int getInventoryMax() {
         return items_can_hold;
     }
-        public void addItem(Item item) {
-        if(inventoryItems.size() != items_can_hold) {
+    public boolean addItem(Item item) {
+        if(inventoryItems.size() < items_can_hold) {
             inventoryItems.add(item);
-        } else {
-            //TODO: need to figure out a way to tell user inventory is full
+            return true;
         }
+    	System.out.println("Inventory is full");
+    	return false;
+        //TODO: need to figure out a way to tell user inventory is full
     }
     
     public Item getItem(int x, int y) {
-        int pos = y * 7 + x;
+        int pos = y * inv_width + x;
         if(inventoryItems.size() > pos) {
             if(inventoryItems.get(pos) != null) {
                 return inventoryItems.get(pos);
-            } else {
-                //no item to return;
-                return null;
             }
-        } else {
-            return null;
-        }
+        } 
+        return null;
     }
     
-    public void addEquip(Item item) {
-        if(equippedItems.size() <= items_can_wear) {
+    public boolean addEquip(Item item) {
+        if(equippedItems.size() < items_can_wear) {
             equippedItems.add(item);
-        } else {
-            //can not add item
+            return true;
         }
+        System.out.println("Can not equip. too many items equipped.");
+        return false;
     }
     
     public Item getEquip(int i) {

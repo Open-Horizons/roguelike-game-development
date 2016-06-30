@@ -15,7 +15,6 @@ import roguelike_game.entity.item.Item;
 
 //used to draw the world map
 public class TileMap {
-    private Game game;
     
     public int width;
     public int height;
@@ -23,8 +22,7 @@ public class TileMap {
     public int[][] tiles;
     public Item[][] items;
     
-    public TileMap(Game game, int width, int height) {
-        this.game = game;
+    public TileMap(int width, int height) {
         this.width = width;
         this.height = height;
         size = 32;
@@ -42,7 +40,6 @@ public class TileMap {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int r = rand.nextInt(3);
-                //System.out.println("rand = " + r);
                 tiles[y][x] = r;
             }
         } 

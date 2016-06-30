@@ -16,8 +16,8 @@ import javax.swing.JTextField;
  * @author andyafw
  */
 public class DeveloperConsole extends JFrame {
-    private static DeveloperConsole console;
-    
+	private static final long serialVersionUID = 7689675837098389297L;
+	private static DeveloperConsole console;
     private JTextField output;
     private JTextArea input;
     private JScrollPane pane;
